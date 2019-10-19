@@ -2,6 +2,7 @@ package kz.mobile.fragmentapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,11 @@ public class FragAdapter extends RecyclerView.Adapter<FragAdapter.MainViewHolder
     private int counter = 0;
 
     public FragAdapter(ArrayList<ContentItem> items, ItemClickListener itemClickListener){
+        Log.d("lifecycle","frag adapter created");
+           counter=SecondFragment.like;
         this.items = items;
         this.itemClickListener = itemClickListener;
+
     }
     @NonNull
     @Override
@@ -33,6 +37,8 @@ public class FragAdapter extends RecyclerView.Adapter<FragAdapter.MainViewHolder
                 .inflate(R.layout.item_row_person, parent, false);
         return new MainViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {

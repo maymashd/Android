@@ -79,7 +79,7 @@ public class TabActivity extends AppCompatActivity implements FirstFragment.Send
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("lifecycle","onStart");
+        Log.d("lifecycle","Tab onStart");
     }
 
     @Override
@@ -89,40 +89,42 @@ public class TabActivity extends AppCompatActivity implements FirstFragment.Send
         String tag = "android:switcher:" + R.id.viewPager + ":" + 1;
         SecondFragment f = (SecondFragment) getSupportFragmentManager().findFragmentByTag(tag);
         f.displayReceivedData(String.valueOf(cnt));
-        Log.d("lifecycle", "onRestoreInstanceState" + cnt);
+        Log.d("lifecycle", "Tab onRestoreInstanceState" + cnt);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("lifecycle", "onResume");
+        Log.d("lifecycle", "Tab onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("lifecycle", "onPause");
+        Log.d("lifecycle", "Tab onPause");
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("lifecycle", "onStop");
+        Log.d("lifecycle", "Tab onStop");
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("cnt", cnt);
-        Log.d("lifecycle", "onSaveInstanceState" + cnt);
+        String tag = "android:switcher:" + R.id.viewPager + ":" + 1;
+        SecondFragment f = (SecondFragment) getSupportFragmentManager().findFragmentByTag(tag);
+        outState.putInt("cnt", SecondFragment.like);
+        Log.d("lifecycle", "Tab onSaveInstanceState" + cnt);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("lifecycle", "onDestroy");
+        Log.d("lifecycle", "Tab onDestroy");
     }
 
     @Override
@@ -152,6 +154,8 @@ public class TabActivity extends AppCompatActivity implements FirstFragment.Send
 
             }
         }
+
+
 
         @Override
         public int getCount() {

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class FirstFragment extends Fragment implements FragAdapter.ItemClickList
 
     @Override
     public void onAttach(@NonNull Context context) {
+        Log.d("lifecycle", "First fragment onAttach");
         super.onAttach(context);
         SM = (SendMessage) context;
     }
@@ -41,7 +43,7 @@ public class FirstFragment extends Fragment implements FragAdapter.ItemClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_first, container, false);
-
+        Log.d("lifecycle", "First Fragment onCreateView");
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -64,11 +66,13 @@ public class FirstFragment extends Fragment implements FragAdapter.ItemClickList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("lifecycle", "First fragment onViewCreated");
     }
 
     @Override
     public void onItemClick(String counter) {
         SM.sendData(String.valueOf(counter));
+
     }
 
 

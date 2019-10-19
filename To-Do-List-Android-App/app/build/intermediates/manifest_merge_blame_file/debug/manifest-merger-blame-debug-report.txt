@@ -21,47 +21,46 @@
 15-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:8:9-41
 16        android:supportsRtl="true"
 16-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:9:9-35
-17        android:testOnly="true"
-18        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-18-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:10:9-65
-19        <activity android:name="com.darkpingouin.todolist.MainActivity" >
-19-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:11:9-17:20
-19-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:11:19-47
-20            <intent-filter>
-20-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:12:13-16:29
-21                <action android:name="android.intent.action.MAIN" />
-21-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:13:17-69
-21-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:13:25-66
-22
-23                <category android:name="android.intent.category.LAUNCHER" />
-23-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:15:17-77
-23-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:15:27-74
-24            </intent-filter>
-25        </activity>
-26
-27        <receiver android:name="com.darkpingouin.todolist.NotificationPublisher" />
-27-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:19:9-59
-27-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:19:19-56
-28
-29        <activity android:name="com.darkpingouin.todolist.AddItem" />
-29-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:21:9-45
-29-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:21:19-42
-30        <activity android:name="com.darkpingouin.todolist.EditItem" />
-30-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:22:9-46
-30-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:22:19-43
-31        <activity android:name="com.darkpingouin.todolist.addCategory" />
-31-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:23:9-58
-31-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:23:19-46
-32        <!--
-33 ATTENTION: This was auto-generated to add Google Play services to your project for
-34     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-35        -->
-36        <meta-data
-36-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:25:9-27:69
-37            android:name="com.google.android.gms.version"
-37-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:26:13-58
-38            android:value="@integer/google_play_services_version" />
-38-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:27:13-66
-39    </application>
-40
-41</manifest>
+17        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+17-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:10:9-65
+18        <activity android:name="com.darkpingouin.todolist.MainActivity" >
+18-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:11:9-17:20
+18-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:11:19-47
+19            <intent-filter>
+19-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:12:13-16:29
+20                <action android:name="android.intent.action.MAIN" />
+20-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:13:17-69
+20-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:13:25-66
+21
+22                <category android:name="android.intent.category.LAUNCHER" />
+22-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:15:17-77
+22-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:15:27-74
+23            </intent-filter>
+24        </activity>
+25
+26        <receiver android:name="com.darkpingouin.todolist.NotificationPublisher" />
+26-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:19:9-59
+26-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:19:19-56
+27
+28        <activity android:name="com.darkpingouin.todolist.AddItem" />
+28-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:21:9-45
+28-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:21:19-42
+29        <activity android:name="com.darkpingouin.todolist.EditItem" />
+29-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:22:9-46
+29-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:22:19-43
+30        <activity android:name="com.darkpingouin.todolist.addCategory" />
+30-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:23:9-58
+30-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:23:19-46
+31        <!--
+32 ATTENTION: This was auto-generated to add Google Play services to your project for
+33     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+34        -->
+35        <meta-data
+35-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:25:9-27:69
+36            android:name="com.google.android.gms.version"
+36-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:26:13-58
+37            android:value="@integer/google_play_services_version" />
+37-->C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:27:13-66
+38    </application>
+39
+40</manifest>

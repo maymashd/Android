@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements FirstFragment.SendMessage {
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements FirstFragment.Sen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("lifecycle", "Main activity- onRestoreInstanceState" );
 
         //Show fragment in container
         getSupportFragmentManager()
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements FirstFragment.Sen
     @Override
     public void sendData(String counter) {
         String tag = "android:switcher:" + R.id.viewPager + ":" + 1;
+        Log.d("lifecycle", "Main activity send Data");
         SecondFragment fragment = (SecondFragment)
                 getSupportFragmentManager().findFragmentByTag(tag);
         fragment.displayReceivedData(counter);
