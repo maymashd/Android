@@ -1,0 +1,166 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+MERGED from [com.android.support:design:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e57413d09836a8980fd8a6e38f3846cb\design-25.0.1\AndroidManifest.xml:17:1-27:12
+MERGED from [petrov.kristiyan.colorpicker:colorpicker-library:1.1.2] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\5b95a0d91a532fb8162c385bb53fc36a\colorpicker-library-1.1.2\AndroidManifest.xml:2:1-12:12
+MERGED from [com.android.support:appcompat-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\2eb08f6168326023f1424a8832700db4\appcompat-v7-25.0.1\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:recyclerview-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\f5988d752ef06e3894cc506cee4f55ce\recyclerview-v7-25.0.1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\da1bebf7aef260cc77956e98cc342f34\transition-25.0.1\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\bf91573437cfec99f5522fdd0036f1b1\play-services-appindexing-8.4.0\AndroidManifest.xml:16:1-20:12
+MERGED from [com.google.android.gms:play-services-base:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\ca127a0746d368b17a6cb36bdd541b27\play-services-base-8.4.0\AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\b193dd2af50e762f92443655410d1603\play-services-basement-8.4.0\AndroidManifest.xml:16:1-26:12
+MERGED from [com.android.support:support-v4:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4078fa2a53afb49fd181a92689d40c3\support-v4-25.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [com.daimajia.swipelayout:library:1.2.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\dfe755a941298c04fdfe3c2fb3a4560e\library-1.2.0\AndroidManifest.xml:2:1-10:12
+MERGED from [com.android.support:animated-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\76d5c91efa259eb57f29b33c2b353c4e\animated-vector-drawable-25.0.1\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4a25781e53ace81a647d502a3cc3aed\support-vector-drawable-25.0.1\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:support-fragment:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\635a9a632d6765afd40cf062bbf766b6\support-fragment-25.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-media-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e853f355cb5a51c551e622bfd6322931\support-media-compat-25.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-core-utils:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\277e86425946e7732acbe50e9f774475\support-core-utils-25.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-core-ui:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e8a2943f079f1ac2ea45bf9e80643c06\support-core-ui-25.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\58f713557ff917b2333347fce0541d42\support-compat-25.1.0\AndroidManifest.xml:17:1-27:12
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+	package
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:3:5-40
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:1-30:12
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:5:5-28:19
+MERGED from [com.android.support:design:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e57413d09836a8980fd8a6e38f3846cb\design-25.0.1\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:design:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e57413d09836a8980fd8a6e38f3846cb\design-25.0.1\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\2eb08f6168326023f1424a8832700db4\appcompat-v7-25.0.1\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\2eb08f6168326023f1424a8832700db4\appcompat-v7-25.0.1\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:transition:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\da1bebf7aef260cc77956e98cc342f34\transition-25.0.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:transition:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\da1bebf7aef260cc77956e98cc342f34\transition-25.0.1\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\bf91573437cfec99f5522fdd0036f1b1\play-services-appindexing-8.4.0\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\bf91573437cfec99f5522fdd0036f1b1\play-services-appindexing-8.4.0\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\b193dd2af50e762f92443655410d1603\play-services-basement-8.4.0\AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\b193dd2af50e762f92443655410d1603\play-services-basement-8.4.0\AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4078fa2a53afb49fd181a92689d40c3\support-v4-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4078fa2a53afb49fd181a92689d40c3\support-v4-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\76d5c91efa259eb57f29b33c2b353c4e\animated-vector-drawable-25.0.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\76d5c91efa259eb57f29b33c2b353c4e\animated-vector-drawable-25.0.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4a25781e53ace81a647d502a3cc3aed\support-vector-drawable-25.0.1\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4a25781e53ace81a647d502a3cc3aed\support-vector-drawable-25.0.1\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-fragment:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\635a9a632d6765afd40cf062bbf766b6\support-fragment-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\635a9a632d6765afd40cf062bbf766b6\support-fragment-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e853f355cb5a51c551e622bfd6322931\support-media-compat-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e853f355cb5a51c551e622bfd6322931\support-media-compat-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\277e86425946e7732acbe50e9f774475\support-core-utils-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\277e86425946e7732acbe50e9f774475\support-core-utils-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e8a2943f079f1ac2ea45bf9e80643c06\support-core-ui-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e8a2943f079f1ac2ea45bf9e80643c06\support-core-ui-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\58f713557ff917b2333347fce0541d42\support-compat-25.1.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\58f713557ff917b2333347fce0541d42\support-compat-25.1.0\AndroidManifest.xml:25:5-20
+	android:supportsRtl
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:9:9-35
+	android:label
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:8:9-41
+	android:icon
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:7:9-43
+	android:allowBackup
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:6:9-35
+	android:theme
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:10:9-65
+activity#com.darkpingouin.todolist.MainActivity
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:11:9-17:20
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:11:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:12:13-16:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:13:17-69
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:13:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:15:17-77
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:15:27-74
+receiver#com.darkpingouin.todolist.NotificationPublisher
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:19:9-59
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:19:19-56
+activity#com.darkpingouin.todolist.AddItem
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:21:9-45
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:21:19-42
+activity#com.darkpingouin.todolist.EditItem
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:22:9-46
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:22:19-43
+activity#com.darkpingouin.todolist.addCategory
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:23:9-58
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:23:19-46
+meta-data#com.google.android.gms.version
+ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:25:9-27:69
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\b193dd2af50e762f92443655410d1603\play-services-basement-8.4.0\AndroidManifest.xml:21:9-23:69
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\b193dd2af50e762f92443655410d1603\play-services-basement-8.4.0\AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:27:13-66
+	android:name
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml:26:13-58
+uses-sdk
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:design:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e57413d09836a8980fd8a6e38f3846cb\design-25.0.1\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e57413d09836a8980fd8a6e38f3846cb\design-25.0.1\AndroidManifest.xml:21:5-23:62
+MERGED from [petrov.kristiyan.colorpicker:colorpicker-library:1.1.2] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\5b95a0d91a532fb8162c385bb53fc36a\colorpicker-library-1.1.2\AndroidManifest.xml:8:5-10:41
+MERGED from [petrov.kristiyan.colorpicker:colorpicker-library:1.1.2] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\5b95a0d91a532fb8162c385bb53fc36a\colorpicker-library-1.1.2\AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:appcompat-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\2eb08f6168326023f1424a8832700db4\appcompat-v7-25.0.1\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\2eb08f6168326023f1424a8832700db4\appcompat-v7-25.0.1\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:recyclerview-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\f5988d752ef06e3894cc506cee4f55ce\recyclerview-v7-25.0.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\f5988d752ef06e3894cc506cee4f55ce\recyclerview-v7-25.0.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\da1bebf7aef260cc77956e98cc342f34\transition-25.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\da1bebf7aef260cc77956e98cc342f34\transition-25.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\bf91573437cfec99f5522fdd0036f1b1\play-services-appindexing-8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\bf91573437cfec99f5522fdd0036f1b1\play-services-appindexing-8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\ca127a0746d368b17a6cb36bdd541b27\play-services-base-8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\ca127a0746d368b17a6cb36bdd541b27\play-services-base-8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\b193dd2af50e762f92443655410d1603\play-services-basement-8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\b193dd2af50e762f92443655410d1603\play-services-basement-8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4078fa2a53afb49fd181a92689d40c3\support-v4-25.1.0\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4078fa2a53afb49fd181a92689d40c3\support-v4-25.1.0\AndroidManifest.xml:21:5-23:54
+MERGED from [com.daimajia.swipelayout:library:1.2.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\dfe755a941298c04fdfe3c2fb3a4560e\library-1.2.0\AndroidManifest.xml:6:5-8:41
+MERGED from [com.daimajia.swipelayout:library:1.2.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\dfe755a941298c04fdfe3c2fb3a4560e\library-1.2.0\AndroidManifest.xml:6:5-8:41
+MERGED from [com.android.support:animated-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\76d5c91efa259eb57f29b33c2b353c4e\animated-vector-drawable-25.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\76d5c91efa259eb57f29b33c2b353c4e\animated-vector-drawable-25.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4a25781e53ace81a647d502a3cc3aed\support-vector-drawable-25.0.1\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-vector-drawable:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\c4a25781e53ace81a647d502a3cc3aed\support-vector-drawable-25.0.1\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-fragment:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\635a9a632d6765afd40cf062bbf766b6\support-fragment-25.1.0\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\635a9a632d6765afd40cf062bbf766b6\support-fragment-25.1.0\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e853f355cb5a51c551e622bfd6322931\support-media-compat-25.1.0\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e853f355cb5a51c551e622bfd6322931\support-media-compat-25.1.0\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\277e86425946e7732acbe50e9f774475\support-core-utils-25.1.0\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\277e86425946e7732acbe50e9f774475\support-core-utils-25.1.0\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-ui:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e8a2943f079f1ac2ea45bf9e80643c06\support-core-ui-25.1.0\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e8a2943f079f1ac2ea45bf9e80643c06\support-core-ui-25.1.0\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\58f713557ff917b2333347fce0541d42\support-compat-25.1.0\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\58f713557ff917b2333347fce0541d42\support-compat-25.1.0\AndroidManifest.xml:21:5-23:58
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.0.1] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\e57413d09836a8980fd8a6e38f3846cb\design-25.0.1\AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Lenovo\Desktop\Android\To-Do-List-Android-App\app\src\main\AndroidManifest.xml
