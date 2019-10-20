@@ -171,32 +171,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Up to Date" />
+
         <LinearLayout
-            android:background="#EFEFEF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="2dp">
+            android:background="#EFEFEF"
+            android:paddingLeft="2dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/label" />
+                android:src="@drawable/label"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="addCategorie"
                 android:padding="10dp"
                 android:text="Categories"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="invisible" />
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:onClick="addCategorie"
-                android:src="@drawable/config" />
+                android:src="@drawable/config"
+                android:visibility="invisible" />
         </LinearLayout>
 
 
@@ -205,7 +208,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#61F5E1E1"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:visibility="invisible">
 
 
         </ListView>

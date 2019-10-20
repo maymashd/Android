@@ -103,8 +103,13 @@ public class MainActivity extends ActionBarActivity {
         });
        getData();
         getCatData();
-        if (cat.size() == 0)
+        if (cat.size() == 0) {
             cat.add(new Categorie("none", Color.parseColor("#262D3B")));
+            cat.add(new Categorie("hobby", Color.parseColor("#262D3B")));
+            cat.add(new Categorie("homework", Color.parseColor("#262D3B")));
+            cat.add(new Categorie("sport", Color.parseColor("#262D3B")));
+            cat.add(new Categorie("game", Color.parseColor("#262D3B")));
+        }
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
