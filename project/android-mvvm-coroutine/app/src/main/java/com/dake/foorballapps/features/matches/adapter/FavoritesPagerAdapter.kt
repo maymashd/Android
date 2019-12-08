@@ -10,13 +10,6 @@ import com.dake.foorballapps.features.matches.FavoritesTeamsFragment
 
 class FavoritesPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment {
-        return when (position) {
-            0 -> FavoriteMatchesFragment.newInstance()
-            1 -> FavoritesTeamsFragment.newInstance()
-            else -> error("Cannot create more than two fragment")
-        }
-    }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
@@ -25,6 +18,16 @@ class FavoritesPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
             else -> super.getPageTitle(position)
         }
     }
+
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> FavoriteMatchesFragment.newInstance()
+            1 -> FavoritesTeamsFragment.newInstance()
+            else -> error("Cannot create more than two fragment")
+        }
+    }
+
+
 
     override fun getCount(): Int = 2
 

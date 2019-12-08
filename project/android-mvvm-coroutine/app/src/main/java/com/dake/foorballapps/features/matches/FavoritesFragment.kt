@@ -17,6 +17,10 @@ class FavoritesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_favorites, container, false)
     }
 
+    companion object {
+        fun newInstance() = FavoritesFragment()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupViewPager()
@@ -27,7 +31,5 @@ class FavoritesFragment : Fragment() {
         tabFavorites.setupWithViewPager(vpFavorites)
     }
 
-    companion object {
-        fun newInstance() = FavoritesFragment()
-    }
+
 }

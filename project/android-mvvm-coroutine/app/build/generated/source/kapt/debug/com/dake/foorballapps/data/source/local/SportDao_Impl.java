@@ -27,26 +27,56 @@ import java.util.concurrent.Callable;
 public final class SportDao_Impl implements SportDao {
   private final RoomDatabase __db;
 
+  private final EntityInsertionAdapter __insertionAdapterOfFavoriteMatch;
+
+  private final EntityInsertionAdapter __insertionAdapterOfFavoriteTeam;
+
   private final EntityInsertionAdapter __insertionAdapterOfMatch;
 
   private final EntityInsertionAdapter __insertionAdapterOfTeam;
 
   private final EntityInsertionAdapter __insertionAdapterOfPlayer;
 
-  private final EntityInsertionAdapter __insertionAdapterOfFavoriteMatch;
-
-  private final EntityInsertionAdapter __insertionAdapterOfFavoriteTeam;
-
-  private final SharedSQLiteStatement __preparedStmtOfDeleteNextMatches;
-
-  private final SharedSQLiteStatement __preparedStmtOfDeletePrevMatches;
-
   private final SharedSQLiteStatement __preparedStmtOfDeleteFavoriteMatch;
 
   private final SharedSQLiteStatement __preparedStmtOfDeleteFavoriteTeam;
 
+  private final SharedSQLiteStatement __preparedStmtOfDeletePrevMatches;
+
+  private final SharedSQLiteStatement __preparedStmtOfDeleteNextMatches;
+
   public SportDao_Impl(RoomDatabase __db) {
     this.__db = __db;
+    this.__insertionAdapterOfFavoriteMatch = new EntityInsertionAdapter<FavoriteMatch>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `favorite_matches`(`idMatch`) VALUES (?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, FavoriteMatch value) {
+        if (value.getIdMatch() == null) {
+          stmt.bindNull(1);
+        } else {
+          stmt.bindString(1, value.getIdMatch());
+        }
+      }
+    };
+    this.__insertionAdapterOfFavoriteTeam = new EntityInsertionAdapter<FavoriteTeam>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `favorite_teams`(`idTeam`) VALUES (?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, FavoriteTeam value) {
+        if (value.getIdTeam() == null) {
+          stmt.bindNull(1);
+        } else {
+          stmt.bindString(1, value.getIdTeam());
+        }
+      }
+    };
     this.__insertionAdapterOfMatch = new EntityInsertionAdapter<Match>(__db) {
       @Override
       public String createQuery() {
@@ -827,50 +857,6 @@ public final class SportDao_Impl implements SportDao {
         }
       }
     };
-    this.__insertionAdapterOfFavoriteMatch = new EntityInsertionAdapter<FavoriteMatch>(__db) {
-      @Override
-      public String createQuery() {
-        return "INSERT OR REPLACE INTO `favorite_matches`(`idMatch`) VALUES (?)";
-      }
-
-      @Override
-      public void bind(SupportSQLiteStatement stmt, FavoriteMatch value) {
-        if (value.getIdMatch() == null) {
-          stmt.bindNull(1);
-        } else {
-          stmt.bindString(1, value.getIdMatch());
-        }
-      }
-    };
-    this.__insertionAdapterOfFavoriteTeam = new EntityInsertionAdapter<FavoriteTeam>(__db) {
-      @Override
-      public String createQuery() {
-        return "INSERT OR REPLACE INTO `favorite_teams`(`idTeam`) VALUES (?)";
-      }
-
-      @Override
-      public void bind(SupportSQLiteStatement stmt, FavoriteTeam value) {
-        if (value.getIdTeam() == null) {
-          stmt.bindNull(1);
-        } else {
-          stmt.bindString(1, value.getIdTeam());
-        }
-      }
-    };
-    this.__preparedStmtOfDeleteNextMatches = new SharedSQLiteStatement(__db) {
-      @Override
-      public String createQuery() {
-        final String _query = "DELETE FROM matches WHERE matchType = 'type_next_match' AND idLeague = ?";
-        return _query;
-      }
-    };
-    this.__preparedStmtOfDeletePrevMatches = new SharedSQLiteStatement(__db) {
-      @Override
-      public String createQuery() {
-        final String _query = "DELETE FROM matches WHERE matchType = 'type_prev_match' AND idLeague = ?";
-        return _query;
-      }
-    };
     this.__preparedStmtOfDeleteFavoriteMatch = new SharedSQLiteStatement(__db) {
       @Override
       public String createQuery() {
@@ -885,6 +871,42 @@ public final class SportDao_Impl implements SportDao {
         return _query;
       }
     };
+    this.__preparedStmtOfDeletePrevMatches = new SharedSQLiteStatement(__db) {
+      @Override
+      public String createQuery() {
+        final String _query = "DELETE FROM matches WHERE matchType = 'type_prev_match' AND idLeague = ?";
+        return _query;
+      }
+    };
+    this.__preparedStmtOfDeleteNextMatches = new SharedSQLiteStatement(__db) {
+      @Override
+      public String createQuery() {
+        final String _query = "DELETE FROM matches WHERE matchType = 'type_next_match' AND idLeague = ?";
+        return _query;
+      }
+    };
+  }
+
+  @Override
+  public void addToFavoriteMatch(final FavoriteMatch favMatch) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfFavoriteMatch.insert(favMatch);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void addToFavoriteTeam(final FavoriteTeam favoriteTeam) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfFavoriteTeam.insert(favoriteTeam);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
   }
 
   @Override
@@ -917,66 +939,6 @@ public final class SportDao_Impl implements SportDao {
       __db.setTransactionSuccessful();
     } finally {
       __db.endTransaction();
-    }
-  }
-
-  @Override
-  public void addToFavoriteMatch(final FavoriteMatch favMatch) {
-    __db.beginTransaction();
-    try {
-      __insertionAdapterOfFavoriteMatch.insert(favMatch);
-      __db.setTransactionSuccessful();
-    } finally {
-      __db.endTransaction();
-    }
-  }
-
-  @Override
-  public void addToFavoriteTeam(final FavoriteTeam favoriteTeam) {
-    __db.beginTransaction();
-    try {
-      __insertionAdapterOfFavoriteTeam.insert(favoriteTeam);
-      __db.setTransactionSuccessful();
-    } finally {
-      __db.endTransaction();
-    }
-  }
-
-  @Override
-  public void deleteNextMatches(final String idLeague) {
-    final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteNextMatches.acquire();
-    __db.beginTransaction();
-    try {
-      int _argIndex = 1;
-      if (idLeague == null) {
-        _stmt.bindNull(_argIndex);
-      } else {
-        _stmt.bindString(_argIndex, idLeague);
-      }
-      _stmt.executeUpdateDelete();
-      __db.setTransactionSuccessful();
-    } finally {
-      __db.endTransaction();
-      __preparedStmtOfDeleteNextMatches.release(_stmt);
-    }
-  }
-
-  @Override
-  public void deletePrevMatches(final String idLeague) {
-    final SupportSQLiteStatement _stmt = __preparedStmtOfDeletePrevMatches.acquire();
-    __db.beginTransaction();
-    try {
-      int _argIndex = 1;
-      if (idLeague == null) {
-        _stmt.bindNull(_argIndex);
-      } else {
-        _stmt.bindString(_argIndex, idLeague);
-      }
-      _stmt.executeUpdateDelete();
-      __db.setTransactionSuccessful();
-    } finally {
-      __db.endTransaction();
-      __preparedStmtOfDeletePrevMatches.release(_stmt);
     }
   }
 
@@ -1019,569 +981,41 @@ public final class SportDao_Impl implements SportDao {
   }
 
   @Override
-  public LiveData<List<Match>> getNextMatches(final String idLeague) {
-    final String _sql = "SELECT * FROM matches WHERE idLeague = ? AND matchType = 'type_next_match' ORDER BY dateEvent DESC LIMIT 15";
-    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
-    int _argIndex = 1;
-    if (idLeague == null) {
-      _statement.bindNull(_argIndex);
-    } else {
-      _statement.bindString(_argIndex, idLeague);
+  public void deletePrevMatches(final String idLeague) {
+    final SupportSQLiteStatement _stmt = __preparedStmtOfDeletePrevMatches.acquire();
+    __db.beginTransaction();
+    try {
+      int _argIndex = 1;
+      if (idLeague == null) {
+        _stmt.bindNull(_argIndex);
+      } else {
+        _stmt.bindString(_argIndex, idLeague);
+      }
+      _stmt.executeUpdateDelete();
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+      __preparedStmtOfDeletePrevMatches.release(_stmt);
     }
-    return __db.getInvalidationTracker().createLiveData(new String[]{"matches"}, new Callable<List<Match>>() {
-      @Override
-      public List<Match> call() throws Exception {
-        final Cursor _cursor = DBUtil.query(__db, _statement, false);
-        try {
-          final int _cursorIndexOfMatchType = CursorUtil.getColumnIndexOrThrow(_cursor, "matchType");
-          final int _cursorIndexOfIdEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "idEvent");
-          final int _cursorIndexOfDateEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "dateEvent");
-          final int _cursorIndexOfIdAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idAwayTeam");
-          final int _cursorIndexOfIdHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idHomeTeam");
-          final int _cursorIndexOfIdLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "idLeague");
-          final int _cursorIndexOfIdSoccerXML = CursorUtil.getColumnIndexOrThrow(_cursor, "idSoccerXML");
-          final int _cursorIndexOfIntAwayScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayScore");
-          final int _cursorIndexOfIntAwayShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayShots");
-          final int _cursorIndexOfIntHomeScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeScore");
-          final int _cursorIndexOfIntHomeShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeShots");
-          final int _cursorIndexOfIntRound = CursorUtil.getColumnIndexOrThrow(_cursor, "intRound");
-          final int _cursorIndexOfIntSpectators = CursorUtil.getColumnIndexOrThrow(_cursor, "intSpectators");
-          final int _cursorIndexOfStrAwayFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayFormation");
-          final int _cursorIndexOfStrAwayGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayGoalDetails");
-          final int _cursorIndexOfStrAwayLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupDefense");
-          final int _cursorIndexOfStrAwayLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupForward");
-          final int _cursorIndexOfStrAwayLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupGoalkeeper");
-          final int _cursorIndexOfStrAwayLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupMidfield");
-          final int _cursorIndexOfStrAwayLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupSubstitutes");
-          final int _cursorIndexOfStrAwayRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayRedCards");
-          final int _cursorIndexOfStrAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayTeam");
-          final int _cursorIndexOfStrAwayYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayYellowCards");
-          final int _cursorIndexOfStrBanner = CursorUtil.getColumnIndexOrThrow(_cursor, "strBanner");
-          final int _cursorIndexOfStrCircuit = CursorUtil.getColumnIndexOrThrow(_cursor, "strCircuit");
-          final int _cursorIndexOfStrCity = CursorUtil.getColumnIndexOrThrow(_cursor, "strCity");
-          final int _cursorIndexOfStrCountry = CursorUtil.getColumnIndexOrThrow(_cursor, "strCountry");
-          final int _cursorIndexOfStrDate = CursorUtil.getColumnIndexOrThrow(_cursor, "strDate");
-          final int _cursorIndexOfStrDescriptionEN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionEN");
-          final int _cursorIndexOfStrEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "strEvent");
-          final int _cursorIndexOfStrFanart = CursorUtil.getColumnIndexOrThrow(_cursor, "strFanart");
-          final int _cursorIndexOfStrFilename = CursorUtil.getColumnIndexOrThrow(_cursor, "strFilename");
-          final int _cursorIndexOfStrHomeFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeFormation");
-          final int _cursorIndexOfStrHomeGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeGoalDetails");
-          final int _cursorIndexOfStrHomeLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupDefense");
-          final int _cursorIndexOfStrHomeLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupForward");
-          final int _cursorIndexOfStrHomeLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupGoalkeeper");
-          final int _cursorIndexOfStrHomeLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupMidfield");
-          final int _cursorIndexOfStrHomeLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupSubstitutes");
-          final int _cursorIndexOfStrHomeRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeRedCards");
-          final int _cursorIndexOfStrHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeTeam");
-          final int _cursorIndexOfStrHomeYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeYellowCards");
-          final int _cursorIndexOfStrLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "strLeague");
-          final int _cursorIndexOfStrLocked = CursorUtil.getColumnIndexOrThrow(_cursor, "strLocked");
-          final int _cursorIndexOfStrMap = CursorUtil.getColumnIndexOrThrow(_cursor, "strMap");
-          final int _cursorIndexOfStrPoster = CursorUtil.getColumnIndexOrThrow(_cursor, "strPoster");
-          final int _cursorIndexOfStrResult = CursorUtil.getColumnIndexOrThrow(_cursor, "strResult");
-          final int _cursorIndexOfStrSeason = CursorUtil.getColumnIndexOrThrow(_cursor, "strSeason");
-          final int _cursorIndexOfStrSport = CursorUtil.getColumnIndexOrThrow(_cursor, "strSport");
-          final int _cursorIndexOfStrTVStation = CursorUtil.getColumnIndexOrThrow(_cursor, "strTVStation");
-          final int _cursorIndexOfStrThumb = CursorUtil.getColumnIndexOrThrow(_cursor, "strThumb");
-          final int _cursorIndexOfStrTime = CursorUtil.getColumnIndexOrThrow(_cursor, "strTime");
-          final List<Match> _result = new ArrayList<Match>(_cursor.getCount());
-          while(_cursor.moveToNext()) {
-            final Match _item;
-            final String _tmpIdEvent;
-            _tmpIdEvent = _cursor.getString(_cursorIndexOfIdEvent);
-            final String _tmpDateEvent;
-            _tmpDateEvent = _cursor.getString(_cursorIndexOfDateEvent);
-            final String _tmpIdAwayTeam;
-            _tmpIdAwayTeam = _cursor.getString(_cursorIndexOfIdAwayTeam);
-            final String _tmpIdHomeTeam;
-            _tmpIdHomeTeam = _cursor.getString(_cursorIndexOfIdHomeTeam);
-            final String _tmpIdLeague;
-            _tmpIdLeague = _cursor.getString(_cursorIndexOfIdLeague);
-            final String _tmpIdSoccerXML;
-            _tmpIdSoccerXML = _cursor.getString(_cursorIndexOfIdSoccerXML);
-            final String _tmpIntAwayScore;
-            _tmpIntAwayScore = _cursor.getString(_cursorIndexOfIntAwayScore);
-            final String _tmpIntAwayShots;
-            _tmpIntAwayShots = _cursor.getString(_cursorIndexOfIntAwayShots);
-            final String _tmpIntHomeScore;
-            _tmpIntHomeScore = _cursor.getString(_cursorIndexOfIntHomeScore);
-            final String _tmpIntHomeShots;
-            _tmpIntHomeShots = _cursor.getString(_cursorIndexOfIntHomeShots);
-            final String _tmpIntRound;
-            _tmpIntRound = _cursor.getString(_cursorIndexOfIntRound);
-            final String _tmpIntSpectators;
-            _tmpIntSpectators = _cursor.getString(_cursorIndexOfIntSpectators);
-            final String _tmpStrAwayFormation;
-            _tmpStrAwayFormation = _cursor.getString(_cursorIndexOfStrAwayFormation);
-            final String _tmpStrAwayGoalDetails;
-            _tmpStrAwayGoalDetails = _cursor.getString(_cursorIndexOfStrAwayGoalDetails);
-            final String _tmpStrAwayLineupDefense;
-            _tmpStrAwayLineupDefense = _cursor.getString(_cursorIndexOfStrAwayLineupDefense);
-            final String _tmpStrAwayLineupForward;
-            _tmpStrAwayLineupForward = _cursor.getString(_cursorIndexOfStrAwayLineupForward);
-            final String _tmpStrAwayLineupGoalkeeper;
-            _tmpStrAwayLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrAwayLineupGoalkeeper);
-            final String _tmpStrAwayLineupMidfield;
-            _tmpStrAwayLineupMidfield = _cursor.getString(_cursorIndexOfStrAwayLineupMidfield);
-            final String _tmpStrAwayLineupSubstitutes;
-            _tmpStrAwayLineupSubstitutes = _cursor.getString(_cursorIndexOfStrAwayLineupSubstitutes);
-            final String _tmpStrAwayRedCards;
-            _tmpStrAwayRedCards = _cursor.getString(_cursorIndexOfStrAwayRedCards);
-            final String _tmpStrAwayTeam;
-            _tmpStrAwayTeam = _cursor.getString(_cursorIndexOfStrAwayTeam);
-            final String _tmpStrAwayYellowCards;
-            _tmpStrAwayYellowCards = _cursor.getString(_cursorIndexOfStrAwayYellowCards);
-            final String _tmpStrBanner;
-            _tmpStrBanner = _cursor.getString(_cursorIndexOfStrBanner);
-            final String _tmpStrCircuit;
-            _tmpStrCircuit = _cursor.getString(_cursorIndexOfStrCircuit);
-            final String _tmpStrCity;
-            _tmpStrCity = _cursor.getString(_cursorIndexOfStrCity);
-            final String _tmpStrCountry;
-            _tmpStrCountry = _cursor.getString(_cursorIndexOfStrCountry);
-            final String _tmpStrDate;
-            _tmpStrDate = _cursor.getString(_cursorIndexOfStrDate);
-            final String _tmpStrDescriptionEN;
-            _tmpStrDescriptionEN = _cursor.getString(_cursorIndexOfStrDescriptionEN);
-            final String _tmpStrEvent;
-            _tmpStrEvent = _cursor.getString(_cursorIndexOfStrEvent);
-            final String _tmpStrFanart;
-            _tmpStrFanart = _cursor.getString(_cursorIndexOfStrFanart);
-            final String _tmpStrFilename;
-            _tmpStrFilename = _cursor.getString(_cursorIndexOfStrFilename);
-            final String _tmpStrHomeFormation;
-            _tmpStrHomeFormation = _cursor.getString(_cursorIndexOfStrHomeFormation);
-            final String _tmpStrHomeGoalDetails;
-            _tmpStrHomeGoalDetails = _cursor.getString(_cursorIndexOfStrHomeGoalDetails);
-            final String _tmpStrHomeLineupDefense;
-            _tmpStrHomeLineupDefense = _cursor.getString(_cursorIndexOfStrHomeLineupDefense);
-            final String _tmpStrHomeLineupForward;
-            _tmpStrHomeLineupForward = _cursor.getString(_cursorIndexOfStrHomeLineupForward);
-            final String _tmpStrHomeLineupGoalkeeper;
-            _tmpStrHomeLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrHomeLineupGoalkeeper);
-            final String _tmpStrHomeLineupMidfield;
-            _tmpStrHomeLineupMidfield = _cursor.getString(_cursorIndexOfStrHomeLineupMidfield);
-            final String _tmpStrHomeLineupSubstitutes;
-            _tmpStrHomeLineupSubstitutes = _cursor.getString(_cursorIndexOfStrHomeLineupSubstitutes);
-            final String _tmpStrHomeRedCards;
-            _tmpStrHomeRedCards = _cursor.getString(_cursorIndexOfStrHomeRedCards);
-            final String _tmpStrHomeTeam;
-            _tmpStrHomeTeam = _cursor.getString(_cursorIndexOfStrHomeTeam);
-            final String _tmpStrHomeYellowCards;
-            _tmpStrHomeYellowCards = _cursor.getString(_cursorIndexOfStrHomeYellowCards);
-            final String _tmpStrLeague;
-            _tmpStrLeague = _cursor.getString(_cursorIndexOfStrLeague);
-            final String _tmpStrLocked;
-            _tmpStrLocked = _cursor.getString(_cursorIndexOfStrLocked);
-            final String _tmpStrMap;
-            _tmpStrMap = _cursor.getString(_cursorIndexOfStrMap);
-            final String _tmpStrPoster;
-            _tmpStrPoster = _cursor.getString(_cursorIndexOfStrPoster);
-            final String _tmpStrResult;
-            _tmpStrResult = _cursor.getString(_cursorIndexOfStrResult);
-            final String _tmpStrSeason;
-            _tmpStrSeason = _cursor.getString(_cursorIndexOfStrSeason);
-            final String _tmpStrSport;
-            _tmpStrSport = _cursor.getString(_cursorIndexOfStrSport);
-            final String _tmpStrTVStation;
-            _tmpStrTVStation = _cursor.getString(_cursorIndexOfStrTVStation);
-            final String _tmpStrThumb;
-            _tmpStrThumb = _cursor.getString(_cursorIndexOfStrThumb);
-            final String _tmpStrTime;
-            _tmpStrTime = _cursor.getString(_cursorIndexOfStrTime);
-            _item = new Match(_tmpIdEvent,_tmpDateEvent,_tmpIdAwayTeam,_tmpIdHomeTeam,_tmpIdLeague,_tmpIdSoccerXML,_tmpIntAwayScore,_tmpIntAwayShots,_tmpIntHomeScore,_tmpIntHomeShots,_tmpIntRound,_tmpIntSpectators,_tmpStrAwayFormation,_tmpStrAwayGoalDetails,_tmpStrAwayLineupDefense,_tmpStrAwayLineupForward,_tmpStrAwayLineupGoalkeeper,_tmpStrAwayLineupMidfield,_tmpStrAwayLineupSubstitutes,_tmpStrAwayRedCards,_tmpStrAwayTeam,_tmpStrAwayYellowCards,_tmpStrBanner,_tmpStrCircuit,_tmpStrCity,_tmpStrCountry,_tmpStrDate,_tmpStrDescriptionEN,_tmpStrEvent,_tmpStrFanart,_tmpStrFilename,_tmpStrHomeFormation,_tmpStrHomeGoalDetails,_tmpStrHomeLineupDefense,_tmpStrHomeLineupForward,_tmpStrHomeLineupGoalkeeper,_tmpStrHomeLineupMidfield,_tmpStrHomeLineupSubstitutes,_tmpStrHomeRedCards,_tmpStrHomeTeam,_tmpStrHomeYellowCards,_tmpStrLeague,_tmpStrLocked,_tmpStrMap,_tmpStrPoster,_tmpStrResult,_tmpStrSeason,_tmpStrSport,_tmpStrTVStation,_tmpStrThumb,_tmpStrTime);
-            final String _tmpMatchType;
-            _tmpMatchType = _cursor.getString(_cursorIndexOfMatchType);
-            _item.setMatchType(_tmpMatchType);
-            _result.add(_item);
-          }
-          return _result;
-        } finally {
-          _cursor.close();
-        }
-      }
-
-      @Override
-      protected void finalize() {
-        _statement.release();
-      }
-    });
   }
 
   @Override
-  public LiveData<List<Match>> getPrevMatches(final String idLeague) {
-    final String _sql = "SELECT * FROM matches WHERE idLeague = ? AND matchType = 'type_prev_match' ORDER BY dateEvent DESC LIMIT 15";
-    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
-    int _argIndex = 1;
-    if (idLeague == null) {
-      _statement.bindNull(_argIndex);
-    } else {
-      _statement.bindString(_argIndex, idLeague);
+  public void deleteNextMatches(final String idLeague) {
+    final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteNextMatches.acquire();
+    __db.beginTransaction();
+    try {
+      int _argIndex = 1;
+      if (idLeague == null) {
+        _stmt.bindNull(_argIndex);
+      } else {
+        _stmt.bindString(_argIndex, idLeague);
+      }
+      _stmt.executeUpdateDelete();
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+      __preparedStmtOfDeleteNextMatches.release(_stmt);
     }
-    return __db.getInvalidationTracker().createLiveData(new String[]{"matches"}, new Callable<List<Match>>() {
-      @Override
-      public List<Match> call() throws Exception {
-        final Cursor _cursor = DBUtil.query(__db, _statement, false);
-        try {
-          final int _cursorIndexOfMatchType = CursorUtil.getColumnIndexOrThrow(_cursor, "matchType");
-          final int _cursorIndexOfIdEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "idEvent");
-          final int _cursorIndexOfDateEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "dateEvent");
-          final int _cursorIndexOfIdAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idAwayTeam");
-          final int _cursorIndexOfIdHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idHomeTeam");
-          final int _cursorIndexOfIdLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "idLeague");
-          final int _cursorIndexOfIdSoccerXML = CursorUtil.getColumnIndexOrThrow(_cursor, "idSoccerXML");
-          final int _cursorIndexOfIntAwayScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayScore");
-          final int _cursorIndexOfIntAwayShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayShots");
-          final int _cursorIndexOfIntHomeScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeScore");
-          final int _cursorIndexOfIntHomeShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeShots");
-          final int _cursorIndexOfIntRound = CursorUtil.getColumnIndexOrThrow(_cursor, "intRound");
-          final int _cursorIndexOfIntSpectators = CursorUtil.getColumnIndexOrThrow(_cursor, "intSpectators");
-          final int _cursorIndexOfStrAwayFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayFormation");
-          final int _cursorIndexOfStrAwayGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayGoalDetails");
-          final int _cursorIndexOfStrAwayLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupDefense");
-          final int _cursorIndexOfStrAwayLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupForward");
-          final int _cursorIndexOfStrAwayLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupGoalkeeper");
-          final int _cursorIndexOfStrAwayLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupMidfield");
-          final int _cursorIndexOfStrAwayLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupSubstitutes");
-          final int _cursorIndexOfStrAwayRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayRedCards");
-          final int _cursorIndexOfStrAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayTeam");
-          final int _cursorIndexOfStrAwayYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayYellowCards");
-          final int _cursorIndexOfStrBanner = CursorUtil.getColumnIndexOrThrow(_cursor, "strBanner");
-          final int _cursorIndexOfStrCircuit = CursorUtil.getColumnIndexOrThrow(_cursor, "strCircuit");
-          final int _cursorIndexOfStrCity = CursorUtil.getColumnIndexOrThrow(_cursor, "strCity");
-          final int _cursorIndexOfStrCountry = CursorUtil.getColumnIndexOrThrow(_cursor, "strCountry");
-          final int _cursorIndexOfStrDate = CursorUtil.getColumnIndexOrThrow(_cursor, "strDate");
-          final int _cursorIndexOfStrDescriptionEN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionEN");
-          final int _cursorIndexOfStrEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "strEvent");
-          final int _cursorIndexOfStrFanart = CursorUtil.getColumnIndexOrThrow(_cursor, "strFanart");
-          final int _cursorIndexOfStrFilename = CursorUtil.getColumnIndexOrThrow(_cursor, "strFilename");
-          final int _cursorIndexOfStrHomeFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeFormation");
-          final int _cursorIndexOfStrHomeGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeGoalDetails");
-          final int _cursorIndexOfStrHomeLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupDefense");
-          final int _cursorIndexOfStrHomeLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupForward");
-          final int _cursorIndexOfStrHomeLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupGoalkeeper");
-          final int _cursorIndexOfStrHomeLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupMidfield");
-          final int _cursorIndexOfStrHomeLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupSubstitutes");
-          final int _cursorIndexOfStrHomeRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeRedCards");
-          final int _cursorIndexOfStrHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeTeam");
-          final int _cursorIndexOfStrHomeYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeYellowCards");
-          final int _cursorIndexOfStrLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "strLeague");
-          final int _cursorIndexOfStrLocked = CursorUtil.getColumnIndexOrThrow(_cursor, "strLocked");
-          final int _cursorIndexOfStrMap = CursorUtil.getColumnIndexOrThrow(_cursor, "strMap");
-          final int _cursorIndexOfStrPoster = CursorUtil.getColumnIndexOrThrow(_cursor, "strPoster");
-          final int _cursorIndexOfStrResult = CursorUtil.getColumnIndexOrThrow(_cursor, "strResult");
-          final int _cursorIndexOfStrSeason = CursorUtil.getColumnIndexOrThrow(_cursor, "strSeason");
-          final int _cursorIndexOfStrSport = CursorUtil.getColumnIndexOrThrow(_cursor, "strSport");
-          final int _cursorIndexOfStrTVStation = CursorUtil.getColumnIndexOrThrow(_cursor, "strTVStation");
-          final int _cursorIndexOfStrThumb = CursorUtil.getColumnIndexOrThrow(_cursor, "strThumb");
-          final int _cursorIndexOfStrTime = CursorUtil.getColumnIndexOrThrow(_cursor, "strTime");
-          final List<Match> _result = new ArrayList<Match>(_cursor.getCount());
-          while(_cursor.moveToNext()) {
-            final Match _item;
-            final String _tmpIdEvent;
-            _tmpIdEvent = _cursor.getString(_cursorIndexOfIdEvent);
-            final String _tmpDateEvent;
-            _tmpDateEvent = _cursor.getString(_cursorIndexOfDateEvent);
-            final String _tmpIdAwayTeam;
-            _tmpIdAwayTeam = _cursor.getString(_cursorIndexOfIdAwayTeam);
-            final String _tmpIdHomeTeam;
-            _tmpIdHomeTeam = _cursor.getString(_cursorIndexOfIdHomeTeam);
-            final String _tmpIdLeague;
-            _tmpIdLeague = _cursor.getString(_cursorIndexOfIdLeague);
-            final String _tmpIdSoccerXML;
-            _tmpIdSoccerXML = _cursor.getString(_cursorIndexOfIdSoccerXML);
-            final String _tmpIntAwayScore;
-            _tmpIntAwayScore = _cursor.getString(_cursorIndexOfIntAwayScore);
-            final String _tmpIntAwayShots;
-            _tmpIntAwayShots = _cursor.getString(_cursorIndexOfIntAwayShots);
-            final String _tmpIntHomeScore;
-            _tmpIntHomeScore = _cursor.getString(_cursorIndexOfIntHomeScore);
-            final String _tmpIntHomeShots;
-            _tmpIntHomeShots = _cursor.getString(_cursorIndexOfIntHomeShots);
-            final String _tmpIntRound;
-            _tmpIntRound = _cursor.getString(_cursorIndexOfIntRound);
-            final String _tmpIntSpectators;
-            _tmpIntSpectators = _cursor.getString(_cursorIndexOfIntSpectators);
-            final String _tmpStrAwayFormation;
-            _tmpStrAwayFormation = _cursor.getString(_cursorIndexOfStrAwayFormation);
-            final String _tmpStrAwayGoalDetails;
-            _tmpStrAwayGoalDetails = _cursor.getString(_cursorIndexOfStrAwayGoalDetails);
-            final String _tmpStrAwayLineupDefense;
-            _tmpStrAwayLineupDefense = _cursor.getString(_cursorIndexOfStrAwayLineupDefense);
-            final String _tmpStrAwayLineupForward;
-            _tmpStrAwayLineupForward = _cursor.getString(_cursorIndexOfStrAwayLineupForward);
-            final String _tmpStrAwayLineupGoalkeeper;
-            _tmpStrAwayLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrAwayLineupGoalkeeper);
-            final String _tmpStrAwayLineupMidfield;
-            _tmpStrAwayLineupMidfield = _cursor.getString(_cursorIndexOfStrAwayLineupMidfield);
-            final String _tmpStrAwayLineupSubstitutes;
-            _tmpStrAwayLineupSubstitutes = _cursor.getString(_cursorIndexOfStrAwayLineupSubstitutes);
-            final String _tmpStrAwayRedCards;
-            _tmpStrAwayRedCards = _cursor.getString(_cursorIndexOfStrAwayRedCards);
-            final String _tmpStrAwayTeam;
-            _tmpStrAwayTeam = _cursor.getString(_cursorIndexOfStrAwayTeam);
-            final String _tmpStrAwayYellowCards;
-            _tmpStrAwayYellowCards = _cursor.getString(_cursorIndexOfStrAwayYellowCards);
-            final String _tmpStrBanner;
-            _tmpStrBanner = _cursor.getString(_cursorIndexOfStrBanner);
-            final String _tmpStrCircuit;
-            _tmpStrCircuit = _cursor.getString(_cursorIndexOfStrCircuit);
-            final String _tmpStrCity;
-            _tmpStrCity = _cursor.getString(_cursorIndexOfStrCity);
-            final String _tmpStrCountry;
-            _tmpStrCountry = _cursor.getString(_cursorIndexOfStrCountry);
-            final String _tmpStrDate;
-            _tmpStrDate = _cursor.getString(_cursorIndexOfStrDate);
-            final String _tmpStrDescriptionEN;
-            _tmpStrDescriptionEN = _cursor.getString(_cursorIndexOfStrDescriptionEN);
-            final String _tmpStrEvent;
-            _tmpStrEvent = _cursor.getString(_cursorIndexOfStrEvent);
-            final String _tmpStrFanart;
-            _tmpStrFanart = _cursor.getString(_cursorIndexOfStrFanart);
-            final String _tmpStrFilename;
-            _tmpStrFilename = _cursor.getString(_cursorIndexOfStrFilename);
-            final String _tmpStrHomeFormation;
-            _tmpStrHomeFormation = _cursor.getString(_cursorIndexOfStrHomeFormation);
-            final String _tmpStrHomeGoalDetails;
-            _tmpStrHomeGoalDetails = _cursor.getString(_cursorIndexOfStrHomeGoalDetails);
-            final String _tmpStrHomeLineupDefense;
-            _tmpStrHomeLineupDefense = _cursor.getString(_cursorIndexOfStrHomeLineupDefense);
-            final String _tmpStrHomeLineupForward;
-            _tmpStrHomeLineupForward = _cursor.getString(_cursorIndexOfStrHomeLineupForward);
-            final String _tmpStrHomeLineupGoalkeeper;
-            _tmpStrHomeLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrHomeLineupGoalkeeper);
-            final String _tmpStrHomeLineupMidfield;
-            _tmpStrHomeLineupMidfield = _cursor.getString(_cursorIndexOfStrHomeLineupMidfield);
-            final String _tmpStrHomeLineupSubstitutes;
-            _tmpStrHomeLineupSubstitutes = _cursor.getString(_cursorIndexOfStrHomeLineupSubstitutes);
-            final String _tmpStrHomeRedCards;
-            _tmpStrHomeRedCards = _cursor.getString(_cursorIndexOfStrHomeRedCards);
-            final String _tmpStrHomeTeam;
-            _tmpStrHomeTeam = _cursor.getString(_cursorIndexOfStrHomeTeam);
-            final String _tmpStrHomeYellowCards;
-            _tmpStrHomeYellowCards = _cursor.getString(_cursorIndexOfStrHomeYellowCards);
-            final String _tmpStrLeague;
-            _tmpStrLeague = _cursor.getString(_cursorIndexOfStrLeague);
-            final String _tmpStrLocked;
-            _tmpStrLocked = _cursor.getString(_cursorIndexOfStrLocked);
-            final String _tmpStrMap;
-            _tmpStrMap = _cursor.getString(_cursorIndexOfStrMap);
-            final String _tmpStrPoster;
-            _tmpStrPoster = _cursor.getString(_cursorIndexOfStrPoster);
-            final String _tmpStrResult;
-            _tmpStrResult = _cursor.getString(_cursorIndexOfStrResult);
-            final String _tmpStrSeason;
-            _tmpStrSeason = _cursor.getString(_cursorIndexOfStrSeason);
-            final String _tmpStrSport;
-            _tmpStrSport = _cursor.getString(_cursorIndexOfStrSport);
-            final String _tmpStrTVStation;
-            _tmpStrTVStation = _cursor.getString(_cursorIndexOfStrTVStation);
-            final String _tmpStrThumb;
-            _tmpStrThumb = _cursor.getString(_cursorIndexOfStrThumb);
-            final String _tmpStrTime;
-            _tmpStrTime = _cursor.getString(_cursorIndexOfStrTime);
-            _item = new Match(_tmpIdEvent,_tmpDateEvent,_tmpIdAwayTeam,_tmpIdHomeTeam,_tmpIdLeague,_tmpIdSoccerXML,_tmpIntAwayScore,_tmpIntAwayShots,_tmpIntHomeScore,_tmpIntHomeShots,_tmpIntRound,_tmpIntSpectators,_tmpStrAwayFormation,_tmpStrAwayGoalDetails,_tmpStrAwayLineupDefense,_tmpStrAwayLineupForward,_tmpStrAwayLineupGoalkeeper,_tmpStrAwayLineupMidfield,_tmpStrAwayLineupSubstitutes,_tmpStrAwayRedCards,_tmpStrAwayTeam,_tmpStrAwayYellowCards,_tmpStrBanner,_tmpStrCircuit,_tmpStrCity,_tmpStrCountry,_tmpStrDate,_tmpStrDescriptionEN,_tmpStrEvent,_tmpStrFanart,_tmpStrFilename,_tmpStrHomeFormation,_tmpStrHomeGoalDetails,_tmpStrHomeLineupDefense,_tmpStrHomeLineupForward,_tmpStrHomeLineupGoalkeeper,_tmpStrHomeLineupMidfield,_tmpStrHomeLineupSubstitutes,_tmpStrHomeRedCards,_tmpStrHomeTeam,_tmpStrHomeYellowCards,_tmpStrLeague,_tmpStrLocked,_tmpStrMap,_tmpStrPoster,_tmpStrResult,_tmpStrSeason,_tmpStrSport,_tmpStrTVStation,_tmpStrThumb,_tmpStrTime);
-            final String _tmpMatchType;
-            _tmpMatchType = _cursor.getString(_cursorIndexOfMatchType);
-            _item.setMatchType(_tmpMatchType);
-            _result.add(_item);
-          }
-          return _result;
-        } finally {
-          _cursor.close();
-        }
-      }
-
-      @Override
-      protected void finalize() {
-        _statement.release();
-      }
-    });
-  }
-
-  @Override
-  public LiveData<List<Team>> getTeams(final String leagueId) {
-    final String _sql = "SELECT * FROM teams WHERE idLeague = ?";
-    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
-    int _argIndex = 1;
-    if (leagueId == null) {
-      _statement.bindNull(_argIndex);
-    } else {
-      _statement.bindString(_argIndex, leagueId);
-    }
-    return __db.getInvalidationTracker().createLiveData(new String[]{"teams"}, new Callable<List<Team>>() {
-      @Override
-      public List<Team> call() throws Exception {
-        final Cursor _cursor = DBUtil.query(__db, _statement, false);
-        try {
-          final int _cursorIndexOfIdLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "idLeague");
-          final int _cursorIndexOfIdTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idTeam");
-          final int _cursorIndexOfIdSoccerXML = CursorUtil.getColumnIndexOrThrow(_cursor, "idSoccerXML");
-          final int _cursorIndexOfIntFormedYear = CursorUtil.getColumnIndexOrThrow(_cursor, "intFormedYear");
-          final int _cursorIndexOfIntLoved = CursorUtil.getColumnIndexOrThrow(_cursor, "intLoved");
-          final int _cursorIndexOfIntStadiumCapacity = CursorUtil.getColumnIndexOrThrow(_cursor, "intStadiumCapacity");
-          final int _cursorIndexOfStrAlternate = CursorUtil.getColumnIndexOrThrow(_cursor, "strAlternate");
-          final int _cursorIndexOfStrCountry = CursorUtil.getColumnIndexOrThrow(_cursor, "strCountry");
-          final int _cursorIndexOfStrDescriptionCN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionCN");
-          final int _cursorIndexOfStrDescriptionDE = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionDE");
-          final int _cursorIndexOfStrDescriptionEN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionEN");
-          final int _cursorIndexOfStrDescriptionES = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionES");
-          final int _cursorIndexOfStrDescriptionFR = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionFR");
-          final int _cursorIndexOfStrDescriptionHU = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionHU");
-          final int _cursorIndexOfStrDescriptionIL = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionIL");
-          final int _cursorIndexOfStrDescriptionIT = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionIT");
-          final int _cursorIndexOfStrDescriptionJP = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionJP");
-          final int _cursorIndexOfStrDescriptionNL = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionNL");
-          final int _cursorIndexOfStrDescriptionNO = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionNO");
-          final int _cursorIndexOfStrDescriptionPL = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionPL");
-          final int _cursorIndexOfStrDescriptionPT = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionPT");
-          final int _cursorIndexOfStrDescriptionRU = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionRU");
-          final int _cursorIndexOfStrDescriptionSE = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionSE");
-          final int _cursorIndexOfStrDivision = CursorUtil.getColumnIndexOrThrow(_cursor, "strDivision");
-          final int _cursorIndexOfStrFacebook = CursorUtil.getColumnIndexOrThrow(_cursor, "strFacebook");
-          final int _cursorIndexOfStrGender = CursorUtil.getColumnIndexOrThrow(_cursor, "strGender");
-          final int _cursorIndexOfStrInstagram = CursorUtil.getColumnIndexOrThrow(_cursor, "strInstagram");
-          final int _cursorIndexOfStrKeywords = CursorUtil.getColumnIndexOrThrow(_cursor, "strKeywords");
-          final int _cursorIndexOfStrLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "strLeague");
-          final int _cursorIndexOfStrLocked = CursorUtil.getColumnIndexOrThrow(_cursor, "strLocked");
-          final int _cursorIndexOfStrManager = CursorUtil.getColumnIndexOrThrow(_cursor, "strManager");
-          final int _cursorIndexOfStrRSS = CursorUtil.getColumnIndexOrThrow(_cursor, "strRSS");
-          final int _cursorIndexOfStrSport = CursorUtil.getColumnIndexOrThrow(_cursor, "strSport");
-          final int _cursorIndexOfStrStadium = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadium");
-          final int _cursorIndexOfStrStadiumDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadiumDescription");
-          final int _cursorIndexOfStrStadiumLocation = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadiumLocation");
-          final int _cursorIndexOfStrStadiumThumb = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadiumThumb");
-          final int _cursorIndexOfStrTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeam");
-          final int _cursorIndexOfStrTeamBadge = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamBadge");
-          final int _cursorIndexOfStrTeamBanner = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamBanner");
-          final int _cursorIndexOfStrTeamFanart1 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart1");
-          final int _cursorIndexOfStrTeamFanart2 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart2");
-          final int _cursorIndexOfStrTeamFanart3 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart3");
-          final int _cursorIndexOfStrTeamFanart4 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart4");
-          final int _cursorIndexOfStrTeamJersey = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamJersey");
-          final int _cursorIndexOfStrTeamLogo = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamLogo");
-          final int _cursorIndexOfStrTeamShort = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamShort");
-          final int _cursorIndexOfStrTwitter = CursorUtil.getColumnIndexOrThrow(_cursor, "strTwitter");
-          final int _cursorIndexOfStrWebsite = CursorUtil.getColumnIndexOrThrow(_cursor, "strWebsite");
-          final int _cursorIndexOfStrYoutube = CursorUtil.getColumnIndexOrThrow(_cursor, "strYoutube");
-          final List<Team> _result = new ArrayList<Team>(_cursor.getCount());
-          while(_cursor.moveToNext()) {
-            final Team _item;
-            final String _tmpIdLeague;
-            _tmpIdLeague = _cursor.getString(_cursorIndexOfIdLeague);
-            final String _tmpIdTeam;
-            _tmpIdTeam = _cursor.getString(_cursorIndexOfIdTeam);
-            final String _tmpIdSoccerXML;
-            _tmpIdSoccerXML = _cursor.getString(_cursorIndexOfIdSoccerXML);
-            final String _tmpIntFormedYear;
-            _tmpIntFormedYear = _cursor.getString(_cursorIndexOfIntFormedYear);
-            final String _tmpIntLoved;
-            _tmpIntLoved = _cursor.getString(_cursorIndexOfIntLoved);
-            final String _tmpIntStadiumCapacity;
-            _tmpIntStadiumCapacity = _cursor.getString(_cursorIndexOfIntStadiumCapacity);
-            final String _tmpStrAlternate;
-            _tmpStrAlternate = _cursor.getString(_cursorIndexOfStrAlternate);
-            final String _tmpStrCountry;
-            _tmpStrCountry = _cursor.getString(_cursorIndexOfStrCountry);
-            final String _tmpStrDescriptionCN;
-            _tmpStrDescriptionCN = _cursor.getString(_cursorIndexOfStrDescriptionCN);
-            final String _tmpStrDescriptionDE;
-            _tmpStrDescriptionDE = _cursor.getString(_cursorIndexOfStrDescriptionDE);
-            final String _tmpStrDescriptionEN;
-            _tmpStrDescriptionEN = _cursor.getString(_cursorIndexOfStrDescriptionEN);
-            final String _tmpStrDescriptionES;
-            _tmpStrDescriptionES = _cursor.getString(_cursorIndexOfStrDescriptionES);
-            final String _tmpStrDescriptionFR;
-            _tmpStrDescriptionFR = _cursor.getString(_cursorIndexOfStrDescriptionFR);
-            final String _tmpStrDescriptionHU;
-            _tmpStrDescriptionHU = _cursor.getString(_cursorIndexOfStrDescriptionHU);
-            final String _tmpStrDescriptionIL;
-            _tmpStrDescriptionIL = _cursor.getString(_cursorIndexOfStrDescriptionIL);
-            final String _tmpStrDescriptionIT;
-            _tmpStrDescriptionIT = _cursor.getString(_cursorIndexOfStrDescriptionIT);
-            final String _tmpStrDescriptionJP;
-            _tmpStrDescriptionJP = _cursor.getString(_cursorIndexOfStrDescriptionJP);
-            final String _tmpStrDescriptionNL;
-            _tmpStrDescriptionNL = _cursor.getString(_cursorIndexOfStrDescriptionNL);
-            final String _tmpStrDescriptionNO;
-            _tmpStrDescriptionNO = _cursor.getString(_cursorIndexOfStrDescriptionNO);
-            final String _tmpStrDescriptionPL;
-            _tmpStrDescriptionPL = _cursor.getString(_cursorIndexOfStrDescriptionPL);
-            final String _tmpStrDescriptionPT;
-            _tmpStrDescriptionPT = _cursor.getString(_cursorIndexOfStrDescriptionPT);
-            final String _tmpStrDescriptionRU;
-            _tmpStrDescriptionRU = _cursor.getString(_cursorIndexOfStrDescriptionRU);
-            final String _tmpStrDescriptionSE;
-            _tmpStrDescriptionSE = _cursor.getString(_cursorIndexOfStrDescriptionSE);
-            final String _tmpStrDivision;
-            _tmpStrDivision = _cursor.getString(_cursorIndexOfStrDivision);
-            final String _tmpStrFacebook;
-            _tmpStrFacebook = _cursor.getString(_cursorIndexOfStrFacebook);
-            final String _tmpStrGender;
-            _tmpStrGender = _cursor.getString(_cursorIndexOfStrGender);
-            final String _tmpStrInstagram;
-            _tmpStrInstagram = _cursor.getString(_cursorIndexOfStrInstagram);
-            final String _tmpStrKeywords;
-            _tmpStrKeywords = _cursor.getString(_cursorIndexOfStrKeywords);
-            final String _tmpStrLeague;
-            _tmpStrLeague = _cursor.getString(_cursorIndexOfStrLeague);
-            final String _tmpStrLocked;
-            _tmpStrLocked = _cursor.getString(_cursorIndexOfStrLocked);
-            final String _tmpStrManager;
-            _tmpStrManager = _cursor.getString(_cursorIndexOfStrManager);
-            final String _tmpStrRSS;
-            _tmpStrRSS = _cursor.getString(_cursorIndexOfStrRSS);
-            final String _tmpStrSport;
-            _tmpStrSport = _cursor.getString(_cursorIndexOfStrSport);
-            final String _tmpStrStadium;
-            _tmpStrStadium = _cursor.getString(_cursorIndexOfStrStadium);
-            final String _tmpStrStadiumDescription;
-            _tmpStrStadiumDescription = _cursor.getString(_cursorIndexOfStrStadiumDescription);
-            final String _tmpStrStadiumLocation;
-            _tmpStrStadiumLocation = _cursor.getString(_cursorIndexOfStrStadiumLocation);
-            final String _tmpStrStadiumThumb;
-            _tmpStrStadiumThumb = _cursor.getString(_cursorIndexOfStrStadiumThumb);
-            final String _tmpStrTeam;
-            _tmpStrTeam = _cursor.getString(_cursorIndexOfStrTeam);
-            final String _tmpStrTeamBadge;
-            _tmpStrTeamBadge = _cursor.getString(_cursorIndexOfStrTeamBadge);
-            final String _tmpStrTeamBanner;
-            _tmpStrTeamBanner = _cursor.getString(_cursorIndexOfStrTeamBanner);
-            final String _tmpStrTeamFanart1;
-            _tmpStrTeamFanart1 = _cursor.getString(_cursorIndexOfStrTeamFanart1);
-            final String _tmpStrTeamFanart2;
-            _tmpStrTeamFanart2 = _cursor.getString(_cursorIndexOfStrTeamFanart2);
-            final String _tmpStrTeamFanart3;
-            _tmpStrTeamFanart3 = _cursor.getString(_cursorIndexOfStrTeamFanart3);
-            final String _tmpStrTeamFanart4;
-            _tmpStrTeamFanart4 = _cursor.getString(_cursorIndexOfStrTeamFanart4);
-            final String _tmpStrTeamJersey;
-            _tmpStrTeamJersey = _cursor.getString(_cursorIndexOfStrTeamJersey);
-            final String _tmpStrTeamLogo;
-            _tmpStrTeamLogo = _cursor.getString(_cursorIndexOfStrTeamLogo);
-            final String _tmpStrTeamShort;
-            _tmpStrTeamShort = _cursor.getString(_cursorIndexOfStrTeamShort);
-            final String _tmpStrTwitter;
-            _tmpStrTwitter = _cursor.getString(_cursorIndexOfStrTwitter);
-            final String _tmpStrWebsite;
-            _tmpStrWebsite = _cursor.getString(_cursorIndexOfStrWebsite);
-            final String _tmpStrYoutube;
-            _tmpStrYoutube = _cursor.getString(_cursorIndexOfStrYoutube);
-            _item = new Team(_tmpIdLeague,_tmpIdTeam,_tmpIdSoccerXML,_tmpIntFormedYear,_tmpIntLoved,_tmpIntStadiumCapacity,_tmpStrAlternate,_tmpStrCountry,_tmpStrDescriptionCN,_tmpStrDescriptionDE,_tmpStrDescriptionEN,_tmpStrDescriptionES,_tmpStrDescriptionFR,_tmpStrDescriptionHU,_tmpStrDescriptionIL,_tmpStrDescriptionIT,_tmpStrDescriptionJP,_tmpStrDescriptionNL,_tmpStrDescriptionNO,_tmpStrDescriptionPL,_tmpStrDescriptionPT,_tmpStrDescriptionRU,_tmpStrDescriptionSE,_tmpStrDivision,_tmpStrFacebook,_tmpStrGender,_tmpStrInstagram,_tmpStrKeywords,_tmpStrLeague,_tmpStrLocked,_tmpStrManager,_tmpStrRSS,_tmpStrSport,_tmpStrStadium,_tmpStrStadiumDescription,_tmpStrStadiumLocation,_tmpStrStadiumThumb,_tmpStrTeam,_tmpStrTeamBadge,_tmpStrTeamBanner,_tmpStrTeamFanart1,_tmpStrTeamFanart2,_tmpStrTeamFanart3,_tmpStrTeamFanart4,_tmpStrTeamJersey,_tmpStrTeamLogo,_tmpStrTeamShort,_tmpStrTwitter,_tmpStrWebsite,_tmpStrYoutube);
-            _result.add(_item);
-          }
-          return _result;
-        } finally {
-          _cursor.close();
-        }
-      }
-
-      @Override
-      protected void finalize() {
-        _statement.release();
-      }
-    });
   }
 
   @Override
@@ -3115,6 +2549,572 @@ public final class SportDao_Impl implements SportDao {
             final String _tmpStrYoutube;
             _tmpStrYoutube = _cursor.getString(_cursorIndexOfStrYoutube);
             _item = new Team(_tmpIdLeague,_tmpIdTeam,_tmpIdSoccerXML,_tmpIntFormedYear,_tmpIntLoved,_tmpIntStadiumCapacity,_tmpStrAlternate,_tmpStrCountry,_tmpStrDescriptionCN,_tmpStrDescriptionDE,_tmpStrDescriptionEN,_tmpStrDescriptionES,_tmpStrDescriptionFR,_tmpStrDescriptionHU,_tmpStrDescriptionIL,_tmpStrDescriptionIT,_tmpStrDescriptionJP,_tmpStrDescriptionNL,_tmpStrDescriptionNO,_tmpStrDescriptionPL,_tmpStrDescriptionPT,_tmpStrDescriptionRU,_tmpStrDescriptionSE,_tmpStrDivision,_tmpStrFacebook,_tmpStrGender,_tmpStrInstagram,_tmpStrKeywords,_tmpStrLeague,_tmpStrLocked,_tmpStrManager,_tmpStrRSS,_tmpStrSport,_tmpStrStadium,_tmpStrStadiumDescription,_tmpStrStadiumLocation,_tmpStrStadiumThumb,_tmpStrTeam,_tmpStrTeamBadge,_tmpStrTeamBanner,_tmpStrTeamFanart1,_tmpStrTeamFanart2,_tmpStrTeamFanart3,_tmpStrTeamFanart4,_tmpStrTeamJersey,_tmpStrTeamLogo,_tmpStrTeamShort,_tmpStrTwitter,_tmpStrWebsite,_tmpStrYoutube);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
+  public LiveData<List<Team>> getTeams(final String leagueId) {
+    final String _sql = "SELECT * FROM teams WHERE idLeague = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (leagueId == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, leagueId);
+    }
+    return __db.getInvalidationTracker().createLiveData(new String[]{"teams"}, new Callable<List<Team>>() {
+      @Override
+      public List<Team> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false);
+        try {
+          final int _cursorIndexOfIdLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "idLeague");
+          final int _cursorIndexOfIdTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idTeam");
+          final int _cursorIndexOfIdSoccerXML = CursorUtil.getColumnIndexOrThrow(_cursor, "idSoccerXML");
+          final int _cursorIndexOfIntFormedYear = CursorUtil.getColumnIndexOrThrow(_cursor, "intFormedYear");
+          final int _cursorIndexOfIntLoved = CursorUtil.getColumnIndexOrThrow(_cursor, "intLoved");
+          final int _cursorIndexOfIntStadiumCapacity = CursorUtil.getColumnIndexOrThrow(_cursor, "intStadiumCapacity");
+          final int _cursorIndexOfStrAlternate = CursorUtil.getColumnIndexOrThrow(_cursor, "strAlternate");
+          final int _cursorIndexOfStrCountry = CursorUtil.getColumnIndexOrThrow(_cursor, "strCountry");
+          final int _cursorIndexOfStrDescriptionCN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionCN");
+          final int _cursorIndexOfStrDescriptionDE = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionDE");
+          final int _cursorIndexOfStrDescriptionEN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionEN");
+          final int _cursorIndexOfStrDescriptionES = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionES");
+          final int _cursorIndexOfStrDescriptionFR = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionFR");
+          final int _cursorIndexOfStrDescriptionHU = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionHU");
+          final int _cursorIndexOfStrDescriptionIL = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionIL");
+          final int _cursorIndexOfStrDescriptionIT = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionIT");
+          final int _cursorIndexOfStrDescriptionJP = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionJP");
+          final int _cursorIndexOfStrDescriptionNL = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionNL");
+          final int _cursorIndexOfStrDescriptionNO = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionNO");
+          final int _cursorIndexOfStrDescriptionPL = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionPL");
+          final int _cursorIndexOfStrDescriptionPT = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionPT");
+          final int _cursorIndexOfStrDescriptionRU = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionRU");
+          final int _cursorIndexOfStrDescriptionSE = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionSE");
+          final int _cursorIndexOfStrDivision = CursorUtil.getColumnIndexOrThrow(_cursor, "strDivision");
+          final int _cursorIndexOfStrFacebook = CursorUtil.getColumnIndexOrThrow(_cursor, "strFacebook");
+          final int _cursorIndexOfStrGender = CursorUtil.getColumnIndexOrThrow(_cursor, "strGender");
+          final int _cursorIndexOfStrInstagram = CursorUtil.getColumnIndexOrThrow(_cursor, "strInstagram");
+          final int _cursorIndexOfStrKeywords = CursorUtil.getColumnIndexOrThrow(_cursor, "strKeywords");
+          final int _cursorIndexOfStrLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "strLeague");
+          final int _cursorIndexOfStrLocked = CursorUtil.getColumnIndexOrThrow(_cursor, "strLocked");
+          final int _cursorIndexOfStrManager = CursorUtil.getColumnIndexOrThrow(_cursor, "strManager");
+          final int _cursorIndexOfStrRSS = CursorUtil.getColumnIndexOrThrow(_cursor, "strRSS");
+          final int _cursorIndexOfStrSport = CursorUtil.getColumnIndexOrThrow(_cursor, "strSport");
+          final int _cursorIndexOfStrStadium = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadium");
+          final int _cursorIndexOfStrStadiumDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadiumDescription");
+          final int _cursorIndexOfStrStadiumLocation = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadiumLocation");
+          final int _cursorIndexOfStrStadiumThumb = CursorUtil.getColumnIndexOrThrow(_cursor, "strStadiumThumb");
+          final int _cursorIndexOfStrTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeam");
+          final int _cursorIndexOfStrTeamBadge = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamBadge");
+          final int _cursorIndexOfStrTeamBanner = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamBanner");
+          final int _cursorIndexOfStrTeamFanart1 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart1");
+          final int _cursorIndexOfStrTeamFanart2 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart2");
+          final int _cursorIndexOfStrTeamFanart3 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart3");
+          final int _cursorIndexOfStrTeamFanart4 = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamFanart4");
+          final int _cursorIndexOfStrTeamJersey = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamJersey");
+          final int _cursorIndexOfStrTeamLogo = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamLogo");
+          final int _cursorIndexOfStrTeamShort = CursorUtil.getColumnIndexOrThrow(_cursor, "strTeamShort");
+          final int _cursorIndexOfStrTwitter = CursorUtil.getColumnIndexOrThrow(_cursor, "strTwitter");
+          final int _cursorIndexOfStrWebsite = CursorUtil.getColumnIndexOrThrow(_cursor, "strWebsite");
+          final int _cursorIndexOfStrYoutube = CursorUtil.getColumnIndexOrThrow(_cursor, "strYoutube");
+          final List<Team> _result = new ArrayList<Team>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final Team _item;
+            final String _tmpIdLeague;
+            _tmpIdLeague = _cursor.getString(_cursorIndexOfIdLeague);
+            final String _tmpIdTeam;
+            _tmpIdTeam = _cursor.getString(_cursorIndexOfIdTeam);
+            final String _tmpIdSoccerXML;
+            _tmpIdSoccerXML = _cursor.getString(_cursorIndexOfIdSoccerXML);
+            final String _tmpIntFormedYear;
+            _tmpIntFormedYear = _cursor.getString(_cursorIndexOfIntFormedYear);
+            final String _tmpIntLoved;
+            _tmpIntLoved = _cursor.getString(_cursorIndexOfIntLoved);
+            final String _tmpIntStadiumCapacity;
+            _tmpIntStadiumCapacity = _cursor.getString(_cursorIndexOfIntStadiumCapacity);
+            final String _tmpStrAlternate;
+            _tmpStrAlternate = _cursor.getString(_cursorIndexOfStrAlternate);
+            final String _tmpStrCountry;
+            _tmpStrCountry = _cursor.getString(_cursorIndexOfStrCountry);
+            final String _tmpStrDescriptionCN;
+            _tmpStrDescriptionCN = _cursor.getString(_cursorIndexOfStrDescriptionCN);
+            final String _tmpStrDescriptionDE;
+            _tmpStrDescriptionDE = _cursor.getString(_cursorIndexOfStrDescriptionDE);
+            final String _tmpStrDescriptionEN;
+            _tmpStrDescriptionEN = _cursor.getString(_cursorIndexOfStrDescriptionEN);
+            final String _tmpStrDescriptionES;
+            _tmpStrDescriptionES = _cursor.getString(_cursorIndexOfStrDescriptionES);
+            final String _tmpStrDescriptionFR;
+            _tmpStrDescriptionFR = _cursor.getString(_cursorIndexOfStrDescriptionFR);
+            final String _tmpStrDescriptionHU;
+            _tmpStrDescriptionHU = _cursor.getString(_cursorIndexOfStrDescriptionHU);
+            final String _tmpStrDescriptionIL;
+            _tmpStrDescriptionIL = _cursor.getString(_cursorIndexOfStrDescriptionIL);
+            final String _tmpStrDescriptionIT;
+            _tmpStrDescriptionIT = _cursor.getString(_cursorIndexOfStrDescriptionIT);
+            final String _tmpStrDescriptionJP;
+            _tmpStrDescriptionJP = _cursor.getString(_cursorIndexOfStrDescriptionJP);
+            final String _tmpStrDescriptionNL;
+            _tmpStrDescriptionNL = _cursor.getString(_cursorIndexOfStrDescriptionNL);
+            final String _tmpStrDescriptionNO;
+            _tmpStrDescriptionNO = _cursor.getString(_cursorIndexOfStrDescriptionNO);
+            final String _tmpStrDescriptionPL;
+            _tmpStrDescriptionPL = _cursor.getString(_cursorIndexOfStrDescriptionPL);
+            final String _tmpStrDescriptionPT;
+            _tmpStrDescriptionPT = _cursor.getString(_cursorIndexOfStrDescriptionPT);
+            final String _tmpStrDescriptionRU;
+            _tmpStrDescriptionRU = _cursor.getString(_cursorIndexOfStrDescriptionRU);
+            final String _tmpStrDescriptionSE;
+            _tmpStrDescriptionSE = _cursor.getString(_cursorIndexOfStrDescriptionSE);
+            final String _tmpStrDivision;
+            _tmpStrDivision = _cursor.getString(_cursorIndexOfStrDivision);
+            final String _tmpStrFacebook;
+            _tmpStrFacebook = _cursor.getString(_cursorIndexOfStrFacebook);
+            final String _tmpStrGender;
+            _tmpStrGender = _cursor.getString(_cursorIndexOfStrGender);
+            final String _tmpStrInstagram;
+            _tmpStrInstagram = _cursor.getString(_cursorIndexOfStrInstagram);
+            final String _tmpStrKeywords;
+            _tmpStrKeywords = _cursor.getString(_cursorIndexOfStrKeywords);
+            final String _tmpStrLeague;
+            _tmpStrLeague = _cursor.getString(_cursorIndexOfStrLeague);
+            final String _tmpStrLocked;
+            _tmpStrLocked = _cursor.getString(_cursorIndexOfStrLocked);
+            final String _tmpStrManager;
+            _tmpStrManager = _cursor.getString(_cursorIndexOfStrManager);
+            final String _tmpStrRSS;
+            _tmpStrRSS = _cursor.getString(_cursorIndexOfStrRSS);
+            final String _tmpStrSport;
+            _tmpStrSport = _cursor.getString(_cursorIndexOfStrSport);
+            final String _tmpStrStadium;
+            _tmpStrStadium = _cursor.getString(_cursorIndexOfStrStadium);
+            final String _tmpStrStadiumDescription;
+            _tmpStrStadiumDescription = _cursor.getString(_cursorIndexOfStrStadiumDescription);
+            final String _tmpStrStadiumLocation;
+            _tmpStrStadiumLocation = _cursor.getString(_cursorIndexOfStrStadiumLocation);
+            final String _tmpStrStadiumThumb;
+            _tmpStrStadiumThumb = _cursor.getString(_cursorIndexOfStrStadiumThumb);
+            final String _tmpStrTeam;
+            _tmpStrTeam = _cursor.getString(_cursorIndexOfStrTeam);
+            final String _tmpStrTeamBadge;
+            _tmpStrTeamBadge = _cursor.getString(_cursorIndexOfStrTeamBadge);
+            final String _tmpStrTeamBanner;
+            _tmpStrTeamBanner = _cursor.getString(_cursorIndexOfStrTeamBanner);
+            final String _tmpStrTeamFanart1;
+            _tmpStrTeamFanart1 = _cursor.getString(_cursorIndexOfStrTeamFanart1);
+            final String _tmpStrTeamFanart2;
+            _tmpStrTeamFanart2 = _cursor.getString(_cursorIndexOfStrTeamFanart2);
+            final String _tmpStrTeamFanart3;
+            _tmpStrTeamFanart3 = _cursor.getString(_cursorIndexOfStrTeamFanart3);
+            final String _tmpStrTeamFanart4;
+            _tmpStrTeamFanart4 = _cursor.getString(_cursorIndexOfStrTeamFanart4);
+            final String _tmpStrTeamJersey;
+            _tmpStrTeamJersey = _cursor.getString(_cursorIndexOfStrTeamJersey);
+            final String _tmpStrTeamLogo;
+            _tmpStrTeamLogo = _cursor.getString(_cursorIndexOfStrTeamLogo);
+            final String _tmpStrTeamShort;
+            _tmpStrTeamShort = _cursor.getString(_cursorIndexOfStrTeamShort);
+            final String _tmpStrTwitter;
+            _tmpStrTwitter = _cursor.getString(_cursorIndexOfStrTwitter);
+            final String _tmpStrWebsite;
+            _tmpStrWebsite = _cursor.getString(_cursorIndexOfStrWebsite);
+            final String _tmpStrYoutube;
+            _tmpStrYoutube = _cursor.getString(_cursorIndexOfStrYoutube);
+            _item = new Team(_tmpIdLeague,_tmpIdTeam,_tmpIdSoccerXML,_tmpIntFormedYear,_tmpIntLoved,_tmpIntStadiumCapacity,_tmpStrAlternate,_tmpStrCountry,_tmpStrDescriptionCN,_tmpStrDescriptionDE,_tmpStrDescriptionEN,_tmpStrDescriptionES,_tmpStrDescriptionFR,_tmpStrDescriptionHU,_tmpStrDescriptionIL,_tmpStrDescriptionIT,_tmpStrDescriptionJP,_tmpStrDescriptionNL,_tmpStrDescriptionNO,_tmpStrDescriptionPL,_tmpStrDescriptionPT,_tmpStrDescriptionRU,_tmpStrDescriptionSE,_tmpStrDivision,_tmpStrFacebook,_tmpStrGender,_tmpStrInstagram,_tmpStrKeywords,_tmpStrLeague,_tmpStrLocked,_tmpStrManager,_tmpStrRSS,_tmpStrSport,_tmpStrStadium,_tmpStrStadiumDescription,_tmpStrStadiumLocation,_tmpStrStadiumThumb,_tmpStrTeam,_tmpStrTeamBadge,_tmpStrTeamBanner,_tmpStrTeamFanart1,_tmpStrTeamFanart2,_tmpStrTeamFanart3,_tmpStrTeamFanart4,_tmpStrTeamJersey,_tmpStrTeamLogo,_tmpStrTeamShort,_tmpStrTwitter,_tmpStrWebsite,_tmpStrYoutube);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
+  public LiveData<List<Match>> getPrevMatches(final String idLeague) {
+    final String _sql = "SELECT * FROM matches WHERE idLeague = ? AND matchType = 'type_prev_match' ORDER BY dateEvent DESC LIMIT 15";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (idLeague == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, idLeague);
+    }
+    return __db.getInvalidationTracker().createLiveData(new String[]{"matches"}, new Callable<List<Match>>() {
+      @Override
+      public List<Match> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false);
+        try {
+          final int _cursorIndexOfMatchType = CursorUtil.getColumnIndexOrThrow(_cursor, "matchType");
+          final int _cursorIndexOfIdEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "idEvent");
+          final int _cursorIndexOfDateEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "dateEvent");
+          final int _cursorIndexOfIdAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idAwayTeam");
+          final int _cursorIndexOfIdHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idHomeTeam");
+          final int _cursorIndexOfIdLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "idLeague");
+          final int _cursorIndexOfIdSoccerXML = CursorUtil.getColumnIndexOrThrow(_cursor, "idSoccerXML");
+          final int _cursorIndexOfIntAwayScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayScore");
+          final int _cursorIndexOfIntAwayShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayShots");
+          final int _cursorIndexOfIntHomeScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeScore");
+          final int _cursorIndexOfIntHomeShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeShots");
+          final int _cursorIndexOfIntRound = CursorUtil.getColumnIndexOrThrow(_cursor, "intRound");
+          final int _cursorIndexOfIntSpectators = CursorUtil.getColumnIndexOrThrow(_cursor, "intSpectators");
+          final int _cursorIndexOfStrAwayFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayFormation");
+          final int _cursorIndexOfStrAwayGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayGoalDetails");
+          final int _cursorIndexOfStrAwayLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupDefense");
+          final int _cursorIndexOfStrAwayLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupForward");
+          final int _cursorIndexOfStrAwayLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupGoalkeeper");
+          final int _cursorIndexOfStrAwayLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupMidfield");
+          final int _cursorIndexOfStrAwayLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupSubstitutes");
+          final int _cursorIndexOfStrAwayRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayRedCards");
+          final int _cursorIndexOfStrAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayTeam");
+          final int _cursorIndexOfStrAwayYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayYellowCards");
+          final int _cursorIndexOfStrBanner = CursorUtil.getColumnIndexOrThrow(_cursor, "strBanner");
+          final int _cursorIndexOfStrCircuit = CursorUtil.getColumnIndexOrThrow(_cursor, "strCircuit");
+          final int _cursorIndexOfStrCity = CursorUtil.getColumnIndexOrThrow(_cursor, "strCity");
+          final int _cursorIndexOfStrCountry = CursorUtil.getColumnIndexOrThrow(_cursor, "strCountry");
+          final int _cursorIndexOfStrDate = CursorUtil.getColumnIndexOrThrow(_cursor, "strDate");
+          final int _cursorIndexOfStrDescriptionEN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionEN");
+          final int _cursorIndexOfStrEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "strEvent");
+          final int _cursorIndexOfStrFanart = CursorUtil.getColumnIndexOrThrow(_cursor, "strFanart");
+          final int _cursorIndexOfStrFilename = CursorUtil.getColumnIndexOrThrow(_cursor, "strFilename");
+          final int _cursorIndexOfStrHomeFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeFormation");
+          final int _cursorIndexOfStrHomeGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeGoalDetails");
+          final int _cursorIndexOfStrHomeLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupDefense");
+          final int _cursorIndexOfStrHomeLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupForward");
+          final int _cursorIndexOfStrHomeLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupGoalkeeper");
+          final int _cursorIndexOfStrHomeLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupMidfield");
+          final int _cursorIndexOfStrHomeLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupSubstitutes");
+          final int _cursorIndexOfStrHomeRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeRedCards");
+          final int _cursorIndexOfStrHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeTeam");
+          final int _cursorIndexOfStrHomeYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeYellowCards");
+          final int _cursorIndexOfStrLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "strLeague");
+          final int _cursorIndexOfStrLocked = CursorUtil.getColumnIndexOrThrow(_cursor, "strLocked");
+          final int _cursorIndexOfStrMap = CursorUtil.getColumnIndexOrThrow(_cursor, "strMap");
+          final int _cursorIndexOfStrPoster = CursorUtil.getColumnIndexOrThrow(_cursor, "strPoster");
+          final int _cursorIndexOfStrResult = CursorUtil.getColumnIndexOrThrow(_cursor, "strResult");
+          final int _cursorIndexOfStrSeason = CursorUtil.getColumnIndexOrThrow(_cursor, "strSeason");
+          final int _cursorIndexOfStrSport = CursorUtil.getColumnIndexOrThrow(_cursor, "strSport");
+          final int _cursorIndexOfStrTVStation = CursorUtil.getColumnIndexOrThrow(_cursor, "strTVStation");
+          final int _cursorIndexOfStrThumb = CursorUtil.getColumnIndexOrThrow(_cursor, "strThumb");
+          final int _cursorIndexOfStrTime = CursorUtil.getColumnIndexOrThrow(_cursor, "strTime");
+          final List<Match> _result = new ArrayList<Match>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final Match _item;
+            final String _tmpIdEvent;
+            _tmpIdEvent = _cursor.getString(_cursorIndexOfIdEvent);
+            final String _tmpDateEvent;
+            _tmpDateEvent = _cursor.getString(_cursorIndexOfDateEvent);
+            final String _tmpIdAwayTeam;
+            _tmpIdAwayTeam = _cursor.getString(_cursorIndexOfIdAwayTeam);
+            final String _tmpIdHomeTeam;
+            _tmpIdHomeTeam = _cursor.getString(_cursorIndexOfIdHomeTeam);
+            final String _tmpIdLeague;
+            _tmpIdLeague = _cursor.getString(_cursorIndexOfIdLeague);
+            final String _tmpIdSoccerXML;
+            _tmpIdSoccerXML = _cursor.getString(_cursorIndexOfIdSoccerXML);
+            final String _tmpIntAwayScore;
+            _tmpIntAwayScore = _cursor.getString(_cursorIndexOfIntAwayScore);
+            final String _tmpIntAwayShots;
+            _tmpIntAwayShots = _cursor.getString(_cursorIndexOfIntAwayShots);
+            final String _tmpIntHomeScore;
+            _tmpIntHomeScore = _cursor.getString(_cursorIndexOfIntHomeScore);
+            final String _tmpIntHomeShots;
+            _tmpIntHomeShots = _cursor.getString(_cursorIndexOfIntHomeShots);
+            final String _tmpIntRound;
+            _tmpIntRound = _cursor.getString(_cursorIndexOfIntRound);
+            final String _tmpIntSpectators;
+            _tmpIntSpectators = _cursor.getString(_cursorIndexOfIntSpectators);
+            final String _tmpStrAwayFormation;
+            _tmpStrAwayFormation = _cursor.getString(_cursorIndexOfStrAwayFormation);
+            final String _tmpStrAwayGoalDetails;
+            _tmpStrAwayGoalDetails = _cursor.getString(_cursorIndexOfStrAwayGoalDetails);
+            final String _tmpStrAwayLineupDefense;
+            _tmpStrAwayLineupDefense = _cursor.getString(_cursorIndexOfStrAwayLineupDefense);
+            final String _tmpStrAwayLineupForward;
+            _tmpStrAwayLineupForward = _cursor.getString(_cursorIndexOfStrAwayLineupForward);
+            final String _tmpStrAwayLineupGoalkeeper;
+            _tmpStrAwayLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrAwayLineupGoalkeeper);
+            final String _tmpStrAwayLineupMidfield;
+            _tmpStrAwayLineupMidfield = _cursor.getString(_cursorIndexOfStrAwayLineupMidfield);
+            final String _tmpStrAwayLineupSubstitutes;
+            _tmpStrAwayLineupSubstitutes = _cursor.getString(_cursorIndexOfStrAwayLineupSubstitutes);
+            final String _tmpStrAwayRedCards;
+            _tmpStrAwayRedCards = _cursor.getString(_cursorIndexOfStrAwayRedCards);
+            final String _tmpStrAwayTeam;
+            _tmpStrAwayTeam = _cursor.getString(_cursorIndexOfStrAwayTeam);
+            final String _tmpStrAwayYellowCards;
+            _tmpStrAwayYellowCards = _cursor.getString(_cursorIndexOfStrAwayYellowCards);
+            final String _tmpStrBanner;
+            _tmpStrBanner = _cursor.getString(_cursorIndexOfStrBanner);
+            final String _tmpStrCircuit;
+            _tmpStrCircuit = _cursor.getString(_cursorIndexOfStrCircuit);
+            final String _tmpStrCity;
+            _tmpStrCity = _cursor.getString(_cursorIndexOfStrCity);
+            final String _tmpStrCountry;
+            _tmpStrCountry = _cursor.getString(_cursorIndexOfStrCountry);
+            final String _tmpStrDate;
+            _tmpStrDate = _cursor.getString(_cursorIndexOfStrDate);
+            final String _tmpStrDescriptionEN;
+            _tmpStrDescriptionEN = _cursor.getString(_cursorIndexOfStrDescriptionEN);
+            final String _tmpStrEvent;
+            _tmpStrEvent = _cursor.getString(_cursorIndexOfStrEvent);
+            final String _tmpStrFanart;
+            _tmpStrFanart = _cursor.getString(_cursorIndexOfStrFanart);
+            final String _tmpStrFilename;
+            _tmpStrFilename = _cursor.getString(_cursorIndexOfStrFilename);
+            final String _tmpStrHomeFormation;
+            _tmpStrHomeFormation = _cursor.getString(_cursorIndexOfStrHomeFormation);
+            final String _tmpStrHomeGoalDetails;
+            _tmpStrHomeGoalDetails = _cursor.getString(_cursorIndexOfStrHomeGoalDetails);
+            final String _tmpStrHomeLineupDefense;
+            _tmpStrHomeLineupDefense = _cursor.getString(_cursorIndexOfStrHomeLineupDefense);
+            final String _tmpStrHomeLineupForward;
+            _tmpStrHomeLineupForward = _cursor.getString(_cursorIndexOfStrHomeLineupForward);
+            final String _tmpStrHomeLineupGoalkeeper;
+            _tmpStrHomeLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrHomeLineupGoalkeeper);
+            final String _tmpStrHomeLineupMidfield;
+            _tmpStrHomeLineupMidfield = _cursor.getString(_cursorIndexOfStrHomeLineupMidfield);
+            final String _tmpStrHomeLineupSubstitutes;
+            _tmpStrHomeLineupSubstitutes = _cursor.getString(_cursorIndexOfStrHomeLineupSubstitutes);
+            final String _tmpStrHomeRedCards;
+            _tmpStrHomeRedCards = _cursor.getString(_cursorIndexOfStrHomeRedCards);
+            final String _tmpStrHomeTeam;
+            _tmpStrHomeTeam = _cursor.getString(_cursorIndexOfStrHomeTeam);
+            final String _tmpStrHomeYellowCards;
+            _tmpStrHomeYellowCards = _cursor.getString(_cursorIndexOfStrHomeYellowCards);
+            final String _tmpStrLeague;
+            _tmpStrLeague = _cursor.getString(_cursorIndexOfStrLeague);
+            final String _tmpStrLocked;
+            _tmpStrLocked = _cursor.getString(_cursorIndexOfStrLocked);
+            final String _tmpStrMap;
+            _tmpStrMap = _cursor.getString(_cursorIndexOfStrMap);
+            final String _tmpStrPoster;
+            _tmpStrPoster = _cursor.getString(_cursorIndexOfStrPoster);
+            final String _tmpStrResult;
+            _tmpStrResult = _cursor.getString(_cursorIndexOfStrResult);
+            final String _tmpStrSeason;
+            _tmpStrSeason = _cursor.getString(_cursorIndexOfStrSeason);
+            final String _tmpStrSport;
+            _tmpStrSport = _cursor.getString(_cursorIndexOfStrSport);
+            final String _tmpStrTVStation;
+            _tmpStrTVStation = _cursor.getString(_cursorIndexOfStrTVStation);
+            final String _tmpStrThumb;
+            _tmpStrThumb = _cursor.getString(_cursorIndexOfStrThumb);
+            final String _tmpStrTime;
+            _tmpStrTime = _cursor.getString(_cursorIndexOfStrTime);
+            _item = new Match(_tmpIdEvent,_tmpDateEvent,_tmpIdAwayTeam,_tmpIdHomeTeam,_tmpIdLeague,_tmpIdSoccerXML,_tmpIntAwayScore,_tmpIntAwayShots,_tmpIntHomeScore,_tmpIntHomeShots,_tmpIntRound,_tmpIntSpectators,_tmpStrAwayFormation,_tmpStrAwayGoalDetails,_tmpStrAwayLineupDefense,_tmpStrAwayLineupForward,_tmpStrAwayLineupGoalkeeper,_tmpStrAwayLineupMidfield,_tmpStrAwayLineupSubstitutes,_tmpStrAwayRedCards,_tmpStrAwayTeam,_tmpStrAwayYellowCards,_tmpStrBanner,_tmpStrCircuit,_tmpStrCity,_tmpStrCountry,_tmpStrDate,_tmpStrDescriptionEN,_tmpStrEvent,_tmpStrFanart,_tmpStrFilename,_tmpStrHomeFormation,_tmpStrHomeGoalDetails,_tmpStrHomeLineupDefense,_tmpStrHomeLineupForward,_tmpStrHomeLineupGoalkeeper,_tmpStrHomeLineupMidfield,_tmpStrHomeLineupSubstitutes,_tmpStrHomeRedCards,_tmpStrHomeTeam,_tmpStrHomeYellowCards,_tmpStrLeague,_tmpStrLocked,_tmpStrMap,_tmpStrPoster,_tmpStrResult,_tmpStrSeason,_tmpStrSport,_tmpStrTVStation,_tmpStrThumb,_tmpStrTime);
+            final String _tmpMatchType;
+            _tmpMatchType = _cursor.getString(_cursorIndexOfMatchType);
+            _item.setMatchType(_tmpMatchType);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
+  public LiveData<List<Match>> getNextMatches(final String idLeague) {
+    final String _sql = "SELECT * FROM matches WHERE idLeague = ? AND matchType = 'type_next_match' ORDER BY dateEvent DESC LIMIT 15";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (idLeague == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, idLeague);
+    }
+    return __db.getInvalidationTracker().createLiveData(new String[]{"matches"}, new Callable<List<Match>>() {
+      @Override
+      public List<Match> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false);
+        try {
+          final int _cursorIndexOfMatchType = CursorUtil.getColumnIndexOrThrow(_cursor, "matchType");
+          final int _cursorIndexOfIdEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "idEvent");
+          final int _cursorIndexOfDateEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "dateEvent");
+          final int _cursorIndexOfIdAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idAwayTeam");
+          final int _cursorIndexOfIdHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "idHomeTeam");
+          final int _cursorIndexOfIdLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "idLeague");
+          final int _cursorIndexOfIdSoccerXML = CursorUtil.getColumnIndexOrThrow(_cursor, "idSoccerXML");
+          final int _cursorIndexOfIntAwayScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayScore");
+          final int _cursorIndexOfIntAwayShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intAwayShots");
+          final int _cursorIndexOfIntHomeScore = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeScore");
+          final int _cursorIndexOfIntHomeShots = CursorUtil.getColumnIndexOrThrow(_cursor, "intHomeShots");
+          final int _cursorIndexOfIntRound = CursorUtil.getColumnIndexOrThrow(_cursor, "intRound");
+          final int _cursorIndexOfIntSpectators = CursorUtil.getColumnIndexOrThrow(_cursor, "intSpectators");
+          final int _cursorIndexOfStrAwayFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayFormation");
+          final int _cursorIndexOfStrAwayGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayGoalDetails");
+          final int _cursorIndexOfStrAwayLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupDefense");
+          final int _cursorIndexOfStrAwayLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupForward");
+          final int _cursorIndexOfStrAwayLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupGoalkeeper");
+          final int _cursorIndexOfStrAwayLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupMidfield");
+          final int _cursorIndexOfStrAwayLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayLineupSubstitutes");
+          final int _cursorIndexOfStrAwayRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayRedCards");
+          final int _cursorIndexOfStrAwayTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayTeam");
+          final int _cursorIndexOfStrAwayYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strAwayYellowCards");
+          final int _cursorIndexOfStrBanner = CursorUtil.getColumnIndexOrThrow(_cursor, "strBanner");
+          final int _cursorIndexOfStrCircuit = CursorUtil.getColumnIndexOrThrow(_cursor, "strCircuit");
+          final int _cursorIndexOfStrCity = CursorUtil.getColumnIndexOrThrow(_cursor, "strCity");
+          final int _cursorIndexOfStrCountry = CursorUtil.getColumnIndexOrThrow(_cursor, "strCountry");
+          final int _cursorIndexOfStrDate = CursorUtil.getColumnIndexOrThrow(_cursor, "strDate");
+          final int _cursorIndexOfStrDescriptionEN = CursorUtil.getColumnIndexOrThrow(_cursor, "strDescriptionEN");
+          final int _cursorIndexOfStrEvent = CursorUtil.getColumnIndexOrThrow(_cursor, "strEvent");
+          final int _cursorIndexOfStrFanart = CursorUtil.getColumnIndexOrThrow(_cursor, "strFanart");
+          final int _cursorIndexOfStrFilename = CursorUtil.getColumnIndexOrThrow(_cursor, "strFilename");
+          final int _cursorIndexOfStrHomeFormation = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeFormation");
+          final int _cursorIndexOfStrHomeGoalDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeGoalDetails");
+          final int _cursorIndexOfStrHomeLineupDefense = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupDefense");
+          final int _cursorIndexOfStrHomeLineupForward = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupForward");
+          final int _cursorIndexOfStrHomeLineupGoalkeeper = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupGoalkeeper");
+          final int _cursorIndexOfStrHomeLineupMidfield = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupMidfield");
+          final int _cursorIndexOfStrHomeLineupSubstitutes = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeLineupSubstitutes");
+          final int _cursorIndexOfStrHomeRedCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeRedCards");
+          final int _cursorIndexOfStrHomeTeam = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeTeam");
+          final int _cursorIndexOfStrHomeYellowCards = CursorUtil.getColumnIndexOrThrow(_cursor, "strHomeYellowCards");
+          final int _cursorIndexOfStrLeague = CursorUtil.getColumnIndexOrThrow(_cursor, "strLeague");
+          final int _cursorIndexOfStrLocked = CursorUtil.getColumnIndexOrThrow(_cursor, "strLocked");
+          final int _cursorIndexOfStrMap = CursorUtil.getColumnIndexOrThrow(_cursor, "strMap");
+          final int _cursorIndexOfStrPoster = CursorUtil.getColumnIndexOrThrow(_cursor, "strPoster");
+          final int _cursorIndexOfStrResult = CursorUtil.getColumnIndexOrThrow(_cursor, "strResult");
+          final int _cursorIndexOfStrSeason = CursorUtil.getColumnIndexOrThrow(_cursor, "strSeason");
+          final int _cursorIndexOfStrSport = CursorUtil.getColumnIndexOrThrow(_cursor, "strSport");
+          final int _cursorIndexOfStrTVStation = CursorUtil.getColumnIndexOrThrow(_cursor, "strTVStation");
+          final int _cursorIndexOfStrThumb = CursorUtil.getColumnIndexOrThrow(_cursor, "strThumb");
+          final int _cursorIndexOfStrTime = CursorUtil.getColumnIndexOrThrow(_cursor, "strTime");
+          final List<Match> _result = new ArrayList<Match>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final Match _item;
+            final String _tmpIdEvent;
+            _tmpIdEvent = _cursor.getString(_cursorIndexOfIdEvent);
+            final String _tmpDateEvent;
+            _tmpDateEvent = _cursor.getString(_cursorIndexOfDateEvent);
+            final String _tmpIdAwayTeam;
+            _tmpIdAwayTeam = _cursor.getString(_cursorIndexOfIdAwayTeam);
+            final String _tmpIdHomeTeam;
+            _tmpIdHomeTeam = _cursor.getString(_cursorIndexOfIdHomeTeam);
+            final String _tmpIdLeague;
+            _tmpIdLeague = _cursor.getString(_cursorIndexOfIdLeague);
+            final String _tmpIdSoccerXML;
+            _tmpIdSoccerXML = _cursor.getString(_cursorIndexOfIdSoccerXML);
+            final String _tmpIntAwayScore;
+            _tmpIntAwayScore = _cursor.getString(_cursorIndexOfIntAwayScore);
+            final String _tmpIntAwayShots;
+            _tmpIntAwayShots = _cursor.getString(_cursorIndexOfIntAwayShots);
+            final String _tmpIntHomeScore;
+            _tmpIntHomeScore = _cursor.getString(_cursorIndexOfIntHomeScore);
+            final String _tmpIntHomeShots;
+            _tmpIntHomeShots = _cursor.getString(_cursorIndexOfIntHomeShots);
+            final String _tmpIntRound;
+            _tmpIntRound = _cursor.getString(_cursorIndexOfIntRound);
+            final String _tmpIntSpectators;
+            _tmpIntSpectators = _cursor.getString(_cursorIndexOfIntSpectators);
+            final String _tmpStrAwayFormation;
+            _tmpStrAwayFormation = _cursor.getString(_cursorIndexOfStrAwayFormation);
+            final String _tmpStrAwayGoalDetails;
+            _tmpStrAwayGoalDetails = _cursor.getString(_cursorIndexOfStrAwayGoalDetails);
+            final String _tmpStrAwayLineupDefense;
+            _tmpStrAwayLineupDefense = _cursor.getString(_cursorIndexOfStrAwayLineupDefense);
+            final String _tmpStrAwayLineupForward;
+            _tmpStrAwayLineupForward = _cursor.getString(_cursorIndexOfStrAwayLineupForward);
+            final String _tmpStrAwayLineupGoalkeeper;
+            _tmpStrAwayLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrAwayLineupGoalkeeper);
+            final String _tmpStrAwayLineupMidfield;
+            _tmpStrAwayLineupMidfield = _cursor.getString(_cursorIndexOfStrAwayLineupMidfield);
+            final String _tmpStrAwayLineupSubstitutes;
+            _tmpStrAwayLineupSubstitutes = _cursor.getString(_cursorIndexOfStrAwayLineupSubstitutes);
+            final String _tmpStrAwayRedCards;
+            _tmpStrAwayRedCards = _cursor.getString(_cursorIndexOfStrAwayRedCards);
+            final String _tmpStrAwayTeam;
+            _tmpStrAwayTeam = _cursor.getString(_cursorIndexOfStrAwayTeam);
+            final String _tmpStrAwayYellowCards;
+            _tmpStrAwayYellowCards = _cursor.getString(_cursorIndexOfStrAwayYellowCards);
+            final String _tmpStrBanner;
+            _tmpStrBanner = _cursor.getString(_cursorIndexOfStrBanner);
+            final String _tmpStrCircuit;
+            _tmpStrCircuit = _cursor.getString(_cursorIndexOfStrCircuit);
+            final String _tmpStrCity;
+            _tmpStrCity = _cursor.getString(_cursorIndexOfStrCity);
+            final String _tmpStrCountry;
+            _tmpStrCountry = _cursor.getString(_cursorIndexOfStrCountry);
+            final String _tmpStrDate;
+            _tmpStrDate = _cursor.getString(_cursorIndexOfStrDate);
+            final String _tmpStrDescriptionEN;
+            _tmpStrDescriptionEN = _cursor.getString(_cursorIndexOfStrDescriptionEN);
+            final String _tmpStrEvent;
+            _tmpStrEvent = _cursor.getString(_cursorIndexOfStrEvent);
+            final String _tmpStrFanart;
+            _tmpStrFanart = _cursor.getString(_cursorIndexOfStrFanart);
+            final String _tmpStrFilename;
+            _tmpStrFilename = _cursor.getString(_cursorIndexOfStrFilename);
+            final String _tmpStrHomeFormation;
+            _tmpStrHomeFormation = _cursor.getString(_cursorIndexOfStrHomeFormation);
+            final String _tmpStrHomeGoalDetails;
+            _tmpStrHomeGoalDetails = _cursor.getString(_cursorIndexOfStrHomeGoalDetails);
+            final String _tmpStrHomeLineupDefense;
+            _tmpStrHomeLineupDefense = _cursor.getString(_cursorIndexOfStrHomeLineupDefense);
+            final String _tmpStrHomeLineupForward;
+            _tmpStrHomeLineupForward = _cursor.getString(_cursorIndexOfStrHomeLineupForward);
+            final String _tmpStrHomeLineupGoalkeeper;
+            _tmpStrHomeLineupGoalkeeper = _cursor.getString(_cursorIndexOfStrHomeLineupGoalkeeper);
+            final String _tmpStrHomeLineupMidfield;
+            _tmpStrHomeLineupMidfield = _cursor.getString(_cursorIndexOfStrHomeLineupMidfield);
+            final String _tmpStrHomeLineupSubstitutes;
+            _tmpStrHomeLineupSubstitutes = _cursor.getString(_cursorIndexOfStrHomeLineupSubstitutes);
+            final String _tmpStrHomeRedCards;
+            _tmpStrHomeRedCards = _cursor.getString(_cursorIndexOfStrHomeRedCards);
+            final String _tmpStrHomeTeam;
+            _tmpStrHomeTeam = _cursor.getString(_cursorIndexOfStrHomeTeam);
+            final String _tmpStrHomeYellowCards;
+            _tmpStrHomeYellowCards = _cursor.getString(_cursorIndexOfStrHomeYellowCards);
+            final String _tmpStrLeague;
+            _tmpStrLeague = _cursor.getString(_cursorIndexOfStrLeague);
+            final String _tmpStrLocked;
+            _tmpStrLocked = _cursor.getString(_cursorIndexOfStrLocked);
+            final String _tmpStrMap;
+            _tmpStrMap = _cursor.getString(_cursorIndexOfStrMap);
+            final String _tmpStrPoster;
+            _tmpStrPoster = _cursor.getString(_cursorIndexOfStrPoster);
+            final String _tmpStrResult;
+            _tmpStrResult = _cursor.getString(_cursorIndexOfStrResult);
+            final String _tmpStrSeason;
+            _tmpStrSeason = _cursor.getString(_cursorIndexOfStrSeason);
+            final String _tmpStrSport;
+            _tmpStrSport = _cursor.getString(_cursorIndexOfStrSport);
+            final String _tmpStrTVStation;
+            _tmpStrTVStation = _cursor.getString(_cursorIndexOfStrTVStation);
+            final String _tmpStrThumb;
+            _tmpStrThumb = _cursor.getString(_cursorIndexOfStrThumb);
+            final String _tmpStrTime;
+            _tmpStrTime = _cursor.getString(_cursorIndexOfStrTime);
+            _item = new Match(_tmpIdEvent,_tmpDateEvent,_tmpIdAwayTeam,_tmpIdHomeTeam,_tmpIdLeague,_tmpIdSoccerXML,_tmpIntAwayScore,_tmpIntAwayShots,_tmpIntHomeScore,_tmpIntHomeShots,_tmpIntRound,_tmpIntSpectators,_tmpStrAwayFormation,_tmpStrAwayGoalDetails,_tmpStrAwayLineupDefense,_tmpStrAwayLineupForward,_tmpStrAwayLineupGoalkeeper,_tmpStrAwayLineupMidfield,_tmpStrAwayLineupSubstitutes,_tmpStrAwayRedCards,_tmpStrAwayTeam,_tmpStrAwayYellowCards,_tmpStrBanner,_tmpStrCircuit,_tmpStrCity,_tmpStrCountry,_tmpStrDate,_tmpStrDescriptionEN,_tmpStrEvent,_tmpStrFanart,_tmpStrFilename,_tmpStrHomeFormation,_tmpStrHomeGoalDetails,_tmpStrHomeLineupDefense,_tmpStrHomeLineupForward,_tmpStrHomeLineupGoalkeeper,_tmpStrHomeLineupMidfield,_tmpStrHomeLineupSubstitutes,_tmpStrHomeRedCards,_tmpStrHomeTeam,_tmpStrHomeYellowCards,_tmpStrLeague,_tmpStrLocked,_tmpStrMap,_tmpStrPoster,_tmpStrResult,_tmpStrSeason,_tmpStrSport,_tmpStrTVStation,_tmpStrThumb,_tmpStrTime);
+            final String _tmpMatchType;
+            _tmpMatchType = _cursor.getString(_cursorIndexOfMatchType);
+            _item.setMatchType(_tmpMatchType);
             _result.add(_item);
           }
           return _result;

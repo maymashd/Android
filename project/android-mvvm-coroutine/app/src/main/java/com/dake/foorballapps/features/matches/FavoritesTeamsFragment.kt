@@ -33,15 +33,6 @@ class FavoritesTeamsFragment : Fragment() {
         initData()
     }
 
-
-    private fun setupList() {
-        srl_list.isEnabled = false
-        rv_list.layoutManager = LinearLayoutManager(context)
-        rv_list.adapter = TeamAdapter(context, Resource.loading(null)) {
-            startActivity(TeamDetailActivity.getStartIntent(context, it.idTeam))
-        }
-    }
-
     private fun initData() {
         viewModel.favoriteTeams.observe(activity as MatchesActivity, Observer { res -> updateData(res) })
     }
@@ -54,4 +45,14 @@ class FavoritesTeamsFragment : Fragment() {
     companion object {
         fun newInstance() = FavoritesTeamsFragment()
     }
+
+    private fun setupList() {
+        srl_list.isEnabled = false
+        rv_list.layoutManager = LinearLayoutManager(context)
+        rv_list.adapter = TeamAdapter(context, Resource.loading(null)) {
+            startActivity(TeamDetailActivity.getStartIntent(context, it.idTeam))
+        }
+    }
+
+
 }

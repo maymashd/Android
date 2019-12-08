@@ -21,17 +21,17 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.rifqimfahmi.foorballapps.features.matches.MatchesActivity" >
+        <activity android:name="com.dake.foorballapps.features.matches.MatchesActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rifqimfahmi.foorballapps.features.matchdetail.MatchDetailActivity" />
-        <activity android:name="com.rifqimfahmi.foorballapps.features.teamdetail.TeamDetailActivity" />
-        <activity android:name="com.rifqimfahmi.foorballapps.features.playerdetail.PlayerDetailActivity" />
-        <activity android:name="com.rifqimfahmi.foorballapps.features.searchmatch.SearchMatchActivity" >
+        <activity android:name="com.dake.foorballapps.features.matchdetail.MatchDetailActivity" />
+        <activity android:name="com.dake.foorballapps.features.teamdetail.TeamDetailActivity" />
+        <activity android:name="com.dake.foorballapps.features.playerdetail.PlayerDetailActivity" />
+        <activity android:name="com.dake.foorballapps.features.searchmatch.SearchMatchActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -40,7 +40,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable_match" />
         </activity>
-        <activity android:name="com.rifqimfahmi.foorballapps.features.searchteam.SearchTeamActivity" >
+        <activity android:name="com.dake.foorballapps.features.searchteam.SearchTeamActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

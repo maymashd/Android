@@ -25,13 +25,6 @@ class MatchesViewModel(context: Application, sportRepository: SportRepository) :
 
     val context: Context = context.applicationContext // application Context to avoid leaks
 
-    val nextMatches: LiveData<Resource<List<Match>>> = Transformations.switchMap(matchFilterId) { leagueId ->
-        if (leagueId.isNullOrBlank()) {
-            AbsentLiveData.create()
-        } else {
-            sportRepository.nextMatches(leagueId)
-        }
-    }
 
     val prevMatch: LiveData<Resource<List<Match>>> = Transformations.switchMap(matchFilterId) { leagueId ->
         if (leagueId.isNullOrBlank()) {
@@ -40,6 +33,24 @@ class MatchesViewModel(context: Application, sportRepository: SportRepository) :
             sportRepository.prevMatches(leagueId)
         }
     }
+
+    val nextMatches: LiveData<Resource<List<Match>>> = Transformations.switchMap(matchFilterId) { leagueId ->
+        if (leagueId.isNullOrBlank()) {
+            AbsentLiveData.create()
+        } else {
+            sportRepository.nextMatches(leagueId)
+        }
+    }
+
+
+
+    val favoriteTeams: LiveData<Resource<List<Team>>> = sportRepository.getFavoriteTeams()
+
+    fun setMatchesFilterBy(position: Int) {
+        matchFilterId.value = context.getLeaguesId(position)
+    }
+
+
 
     val teams: LiveData<Resource<List<Team>>> = Transformations.switchMap(teamFilterId) { leagueId ->
         if (leagueId.isNullOrBlank()) {
@@ -51,14 +62,16 @@ class MatchesViewModel(context: Application, sportRepository: SportRepository) :
 
     val favoriteMatches: LiveData<Resource<List<Match>>> = sportRepository.getFavoriteMatches()
 
-    val favoriteTeams: LiveData<Resource<List<Team>>> = sportRepository.getFavoriteTeams()
 
-    fun setMatchesFilterBy(position: Int) {
-        matchFilterId.value = context.getLeaguesId(position)
-    }
 
     fun setTeamFilterBy(position: Int) {
         teamFilterId.value = context.getLeaguesId(position)
+    }
+
+    fun refreshTeams() {
+        teamFilterId.value?.let {
+            teamFilterId.value = it
+        }
     }
 
     fun refreshMatches() {
@@ -67,9 +80,5 @@ class MatchesViewModel(context: Application, sportRepository: SportRepository) :
         }
     }
 
-    fun refreshTeams() {
-        teamFilterId.value?.let {
-            teamFilterId.value = it
-        }
-    }
+
 }

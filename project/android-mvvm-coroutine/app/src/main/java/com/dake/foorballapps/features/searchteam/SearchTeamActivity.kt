@@ -12,13 +12,21 @@ import kotlinx.android.synthetic.main.list_items.*
 class SearchTeamActivity : BaseSearchActivity<Team>() {
 
     private lateinit var viewModel: SearchTeamViewModel
+    private fun obtainViewModel() = obtainViewModel(SearchTeamViewModel::class.java)
 
-    override fun setupAdapter() {
-        rv_list.adapter = TeamAdapter(this, Resource.loading(null)) {
-            startActivity(TeamDetailActivity.getStartIntent(this, it.idTeam))
-        }
+
+
+
+
+
+    override fun updateData(data: Resource<List<Team>>?) {
+        if (data == null || rv_list == null) return
+        (rv_list.adapter as TeamAdapter).submitData(data)
     }
 
+    override fun submitQuery(query: String?) {
+        viewModel.submitQuery(query)
+    }
     override fun setupData() {
         viewModel = obtainViewModel()
         with (viewModel) {
@@ -26,15 +34,10 @@ class SearchTeamActivity : BaseSearchActivity<Team>() {
             result.observe(this@SearchTeamActivity, Observer { data -> updateData(data) })
         }
     }
-
-    override fun submitQuery(query: String?) {
-        viewModel.submitQuery(query)
+    override fun setupAdapter() {
+        rv_list.adapter = TeamAdapter(this, Resource.loading(null)) {
+            startActivity(TeamDetailActivity.getStartIntent(this, it.idTeam))
+        }
     }
 
-    override fun updateData(data: Resource<List<Team>>?) {
-        if (data == null || rv_list == null) return
-        (rv_list.adapter as TeamAdapter).submitData(data)
-    }
-
-    private fun obtainViewModel() = obtainViewModel(SearchTeamViewModel::class.java)
 }

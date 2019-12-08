@@ -29,6 +29,9 @@ class SportRepository(
     private val coroutineContext: ContextProviders
 ) {
 
+
+
+
     fun nextMatches(leagueId: String): LiveData<Resource<List<Match>>> {
         return object : NetworkBoundResource<List<Match>, SchedulesResponse>(coroutineContext) {
             override fun saveCallResult(item: SchedulesResponse) {
@@ -55,6 +58,7 @@ class SportRepository(
 
         }.asLiveData()
     }
+
 
     fun prevMatches(leagueId: String): LiveData<Resource<List<Match>>> {
         return object : NetworkBoundResource<List<Match>, SchedulesResponse>(coroutineContext) {
@@ -84,6 +88,44 @@ class SportRepository(
         }.asLiveData()
     }
 
+
+    fun getTeam(teamId: String): LiveData<Resource<Team>> {
+        return object : NetworkBoundResource<Team, TeamsResponse>(coroutineContext) {
+            override fun saveCallResult(item: TeamsResponse) {
+                item.teams?.let {
+                    db.runInTransaction {
+                        sportDao.saveTeams(it)
+                    }
+                }
+            }
+
+            override fun createCall(): LiveData<ApiResponse<TeamsResponse>> = sportService.getTeam(teamId)
+
+            override fun shouldFetch(data: Team?): Boolean = data == null
+
+            override fun loadFromDb(): LiveData<Team> = sportDao.getTeam(teamId)
+
+        }.asLiveData()
+    }
+
+    fun getPlayers(teamId: String): LiveData<Resource<List<Player>>> {
+        return object : NetworkBoundResource<List<Player>, PlayersResponse>(coroutineContext) {
+
+            override fun saveCallResult(item: PlayersResponse) {
+                item.player?.let { players ->
+                    sportDao.savePlayers(players)
+                }
+            }
+
+            override fun createCall(): LiveData<ApiResponse<PlayersResponse>> = sportService.getPlayers(teamId)
+
+            override fun shouldFetch(data: List<Player>?): Boolean = data?.isEmpty() ?: true
+
+            override fun loadFromDb(): LiveData<List<Player>> = sportDao.getPlayers(teamId)
+
+        }.asLiveData()
+    }
+
     fun teams(leagueId: String): LiveData<Resource<List<Team>>> {
         return object : NetworkBoundResource<List<Team>, TeamsResponse>(coroutineContext) {
 
@@ -104,21 +146,22 @@ class SportRepository(
         }.asLiveData()
     }
 
-    fun getTeam(teamId: String): LiveData<Resource<Team>> {
-        return object : NetworkBoundResource<Team, TeamsResponse>(coroutineContext) {
-            override fun saveCallResult(item: TeamsResponse) {
-                item.teams?.let {
-                    db.runInTransaction {
-                        sportDao.saveTeams(it)
-                    }
+
+
+    fun getPlayer(playerId: String): LiveData<Resource<Player>> {
+        return object : NetworkBoundResource<Player, PlayersResponse>(coroutineContext) {
+            override fun saveCallResult(item: PlayersResponse) {
+                val player = item.player?.get(0)
+                player?.let {
+                    sportDao.savePlayers(item.player)
                 }
             }
 
-            override fun createCall(): LiveData<ApiResponse<TeamsResponse>> = sportService.getTeam(teamId)
+            override fun createCall(): LiveData<ApiResponse<PlayersResponse>> = sportService.getPlayer(playerId)
 
-            override fun shouldFetch(data: Team?): Boolean = data == null
+            override fun shouldFetch(data: Player?): Boolean = true
 
-            override fun loadFromDb(): LiveData<Team> = sportDao.getTeam(teamId)
+            override fun loadFromDb(): LiveData<Player> = sportDao.getPlayer(playerId)
 
         }.asLiveData()
     }
@@ -150,22 +193,17 @@ class SportRepository(
         }.asLiveData()
     }
 
-    fun getPlayers(teamId: String): LiveData<Resource<List<Player>>> {
-        return object : NetworkBoundResource<List<Player>, PlayersResponse>(coroutineContext) {
 
-            override fun saveCallResult(item: PlayersResponse) {
-                item.player?.let { players ->
-                    sportDao.savePlayers(players)
-                }
+
+    fun getFavoriteTeams(): LiveData<Resource<List<Team>>> {
+        val data = MediatorLiveData<Resource<List<Team>>>()
+        data.value = Resource.loading(null)
+        data.addSource(sportDao.getFavoriteTeams()) {
+            if (it != null) {
+                data.value = Resource.success(it)
             }
-
-            override fun createCall(): LiveData<ApiResponse<PlayersResponse>> = sportService.getPlayers(teamId)
-
-            override fun shouldFetch(data: List<Player>?): Boolean = data?.isEmpty() ?: true
-
-            override fun loadFromDb(): LiveData<List<Player>> = sportDao.getPlayers(teamId)
-
-        }.asLiveData()
+        }
+        return data
     }
 
     fun isFavoriteMatch(matchId: String): LiveData<Boolean> {
@@ -190,6 +228,10 @@ class SportRepository(
         }
     }
 
+
+
+
+
     fun getFavoriteMatches(): LiveData<Resource<List<Match>>> {
         val data = MediatorLiveData<Resource<List<Match>>>()
         data.value = Resource.loading(null)
@@ -199,57 +241,6 @@ class SportRepository(
             }
         }
         return data
-    }
-
-    fun getFavoriteTeams(): LiveData<Resource<List<Team>>> {
-        val data = MediatorLiveData<Resource<List<Team>>>()
-        data.value = Resource.loading(null)
-        data.addSource(sportDao.getFavoriteTeams()) {
-            if (it != null) {
-                data.value = Resource.success(it)
-            }
-        }
-        return data
-    }
-
-    fun isFavoriteTeam(teamId: String): LiveData<Boolean> {
-        val isFavorite = MediatorLiveData<Boolean>()
-        val favCount = sportDao.isFavoriteTeam(teamId)
-
-        isFavorite.addSource(favCount) { data ->
-            data?.let {
-                isFavorite.value = it.favCount > 0
-            }
-        }
-        return isFavorite
-    }
-
-    fun toggleFavoriteTeam(teamId: String, isFavorite: Boolean) {
-        GlobalScope.launch(Dispatchers.IO) {
-            if (isFavorite) { // Remove from favorite
-                sportDao.deleteFavoriteTeam(teamId)
-            } else { // Add to favorite
-                sportDao.addToFavoriteTeam(FavoriteTeam(teamId))
-            }
-        }
-    }
-
-    fun getPlayer(playerId: String): LiveData<Resource<Player>> {
-        return object : NetworkBoundResource<Player, PlayersResponse>(coroutineContext) {
-            override fun saveCallResult(item: PlayersResponse) {
-                val player = item.player?.get(0)
-                player?.let {
-                    sportDao.savePlayers(item.player)
-                }
-            }
-
-            override fun createCall(): LiveData<ApiResponse<PlayersResponse>> = sportService.getPlayer(playerId)
-
-            override fun shouldFetch(data: Player?): Boolean = true
-
-            override fun loadFromDb(): LiveData<Player> = sportDao.getPlayer(playerId)
-
-        }.asLiveData()
     }
 
     fun searchMatch(query: String): LiveData<Resource<List<Match>>> {
@@ -273,6 +264,8 @@ class SportRepository(
         }.asLiveData()
     }
 
+
+
     fun searchTeam(query: String): LiveData<Resource<List<Team>>> {
         return object : NetworkBoundResource<List<Team>, TeamsResponse>(coroutineContext) {
             override fun saveCallResult(item: TeamsResponse) {
@@ -290,6 +283,29 @@ class SportRepository(
         }.asLiveData()
     }
 
+    fun toggleFavoriteTeam(teamId: String, isFavorite: Boolean) {
+        GlobalScope.launch(Dispatchers.IO) {
+            if (isFavorite) { // Remove from favorite
+                sportDao.deleteFavoriteTeam(teamId)
+            } else { // Add to favorite
+                sportDao.addToFavoriteTeam(FavoriteTeam(teamId))
+            }
+        }
+    }
+
+    fun isFavoriteTeam(teamId: String): LiveData<Boolean> {
+        val isFavorite = MediatorLiveData<Boolean>()
+        val favCount = sportDao.isFavoriteTeam(teamId)
+
+        isFavorite.addSource(favCount) { data ->
+            data?.let {
+                isFavorite.value = it.favCount > 0
+            }
+        }
+        return isFavorite
+    }
+
+
     companion object {
         private var INSTANCE: SportRepository? = null
 
@@ -302,4 +318,10 @@ class SportRepository(
                     .also { INSTANCE = it }
             }
     }
+
+
+
+
+
+
 }

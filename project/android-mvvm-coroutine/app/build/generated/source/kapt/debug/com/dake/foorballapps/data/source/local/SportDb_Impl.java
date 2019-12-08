@@ -3,11 +3,16 @@ package com.dake.foorballapps.data.source.local;
 import androidx.room.DatabaseConfiguration;
 import androidx.room.InvalidationTracker;
 import androidx.room.RoomOpenHelper;
+import androidx.room.RoomOpenHelper.Delegate;
 import androidx.room.util.DBUtil;
 import androidx.room.util.TableInfo;
+import androidx.room.util.TableInfo.Column;
+import androidx.room.util.TableInfo.ForeignKey;
+import androidx.room.util.TableInfo.Index;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
-
+import androidx.sqlite.db.SupportSQLiteOpenHelper.Callback;
+import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration;
 import java.lang.IllegalStateException;
 import java.lang.Override;
 import java.lang.String;
@@ -132,7 +137,7 @@ public final class SportDb_Impl extends SportDb {
         final TableInfo _infoMatches = new TableInfo("matches", _columnsMatches, _foreignKeysMatches, _indicesMatches);
         final TableInfo _existingMatches = TableInfo.read(_db, "matches");
         if (! _infoMatches.equals(_existingMatches)) {
-          throw new IllegalStateException("Migration didn't properly handle matches(com.rifqimfahmi.foorballapps.vo.Match).\n"
+          throw new IllegalStateException("Migration didn't properly handle matches(com.dake.foorballapps.vo.Match).\n"
                   + " Expected:\n" + _infoMatches + "\n"
                   + " Found:\n" + _existingMatches);
         }
@@ -192,7 +197,7 @@ public final class SportDb_Impl extends SportDb {
         final TableInfo _infoTeams = new TableInfo("teams", _columnsTeams, _foreignKeysTeams, _indicesTeams);
         final TableInfo _existingTeams = TableInfo.read(_db, "teams");
         if (! _infoTeams.equals(_existingTeams)) {
-          throw new IllegalStateException("Migration didn't properly handle teams(com.rifqimfahmi.foorballapps.vo.Team).\n"
+          throw new IllegalStateException("Migration didn't properly handle teams(com.dake.foorballapps.vo.Team).\n"
                   + " Expected:\n" + _infoTeams + "\n"
                   + " Found:\n" + _existingTeams);
         }
@@ -250,7 +255,7 @@ public final class SportDb_Impl extends SportDb {
         final TableInfo _infoPlayers = new TableInfo("players", _columnsPlayers, _foreignKeysPlayers, _indicesPlayers);
         final TableInfo _existingPlayers = TableInfo.read(_db, "players");
         if (! _infoPlayers.equals(_existingPlayers)) {
-          throw new IllegalStateException("Migration didn't properly handle players(com.rifqimfahmi.foorballapps.vo.Player).\n"
+          throw new IllegalStateException("Migration didn't properly handle players(com.dake.foorballapps.vo.Player).\n"
                   + " Expected:\n" + _infoPlayers + "\n"
                   + " Found:\n" + _existingPlayers);
         }
@@ -261,7 +266,7 @@ public final class SportDb_Impl extends SportDb {
         final TableInfo _infoFavoriteMatches = new TableInfo("favorite_matches", _columnsFavoriteMatches, _foreignKeysFavoriteMatches, _indicesFavoriteMatches);
         final TableInfo _existingFavoriteMatches = TableInfo.read(_db, "favorite_matches");
         if (! _infoFavoriteMatches.equals(_existingFavoriteMatches)) {
-          throw new IllegalStateException("Migration didn't properly handle favorite_matches(com.rifqimfahmi.foorballapps.vo.FavoriteMatch).\n"
+          throw new IllegalStateException("Migration didn't properly handle favorite_matches(com.dake.foorballapps.vo.FavoriteMatch).\n"
                   + " Expected:\n" + _infoFavoriteMatches + "\n"
                   + " Found:\n" + _existingFavoriteMatches);
         }
@@ -272,7 +277,7 @@ public final class SportDb_Impl extends SportDb {
         final TableInfo _infoFavoriteTeams = new TableInfo("favorite_teams", _columnsFavoriteTeams, _foreignKeysFavoriteTeams, _indicesFavoriteTeams);
         final TableInfo _existingFavoriteTeams = TableInfo.read(_db, "favorite_teams");
         if (! _infoFavoriteTeams.equals(_existingFavoriteTeams)) {
-          throw new IllegalStateException("Migration didn't properly handle favorite_teams(com.rifqimfahmi.foorballapps.vo.FavoriteTeam).\n"
+          throw new IllegalStateException("Migration didn't properly handle favorite_teams(com.dake.foorballapps.vo.FavoriteTeam).\n"
                   + " Expected:\n" + _infoFavoriteTeams + "\n"
                   + " Found:\n" + _existingFavoriteTeams);
         }
