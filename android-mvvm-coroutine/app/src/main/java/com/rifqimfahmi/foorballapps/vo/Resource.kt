@@ -1,8 +1,5 @@
 package com.rifqimfahmi.foorballapps.vo
 
-/*
- * Created by Rifqi Mulya Fahmi on 21/11/18.
- */
  
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

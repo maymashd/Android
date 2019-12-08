@@ -12,9 +12,6 @@ import com.rifqimfahmi.foorballapps.vo.Resource
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.list_items.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 11/12/18.
- */
 
 abstract class BaseSearchActivity<T> : AppCompatActivity(), SearchView.OnQueryTextListener {
 

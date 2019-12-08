@@ -13,9 +13,6 @@ import com.rifqimfahmi.foorballapps.features.searchmatch.SearchMatchViewModel
 import com.rifqimfahmi.foorballapps.features.searchteam.SearchTeamViewModel
 import com.rifqimfahmi.foorballapps.features.teamdetail.TeamViewModel
 
-/*
- * Created by Rifqi Mulya Fahmi on 21/11/18.
- */
 
 class ViewModelFactory private constructor(
     private val application: Application,

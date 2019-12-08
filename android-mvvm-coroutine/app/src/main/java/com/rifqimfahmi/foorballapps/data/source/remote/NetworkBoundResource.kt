@@ -7,10 +7,6 @@ import com.rifqimfahmi.foorballapps.vo.Resource
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-/*
- * Created by Rifqi Mulya Fahmi on 01/12/18.
- */
-
 abstract class NetworkBoundResource<ResultType, RequestType>
 constructor(private val contextProviders: ContextProviders) {
 

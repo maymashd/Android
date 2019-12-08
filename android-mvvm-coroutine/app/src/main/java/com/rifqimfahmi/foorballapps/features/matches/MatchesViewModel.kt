@@ -14,9 +14,6 @@ import com.rifqimfahmi.foorballapps.vo.Match
 import com.rifqimfahmi.foorballapps.vo.Resource
 import com.rifqimfahmi.foorballapps.vo.Team
 
-/*
- * Created by Rifqi Mulya Fahmi on 21/11/18.
- */
 
 @OpenForTesting
 class MatchesViewModel(context: Application, sportRepository: SportRepository) : AndroidViewModel(context) {

@@ -3,9 +3,6 @@ package com.rifqimfahmi.foorballapps.vo
 import androidx.room.Entity
 import com.squareup.moshi.Json
 
-/*
- * Created by Rifqi Mulya Fahmi on 08/12/18.
- */
 
 @Entity(tableName = "players", primaryKeys = ["idPlayer", "idTeam"])
 data class Player(

@@ -19,9 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-/*
- * Created by Rifqi Mulya Fahmi on 19/11/18.
- */
 
 @OpenForTesting
 class SportRepository(

@@ -10,10 +10,6 @@ import com.rifqimfahmi.foorballapps.features.matches.MatchesListFragment
 import com.rifqimfahmi.foorballapps.testing.OpenForTesting
 import com.rifqimfahmi.foorballapps.vo.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 21/11/18.
- */
-
 @Dao
 @OpenForTesting
 interface SportDao {

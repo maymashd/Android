@@ -9,9 +9,6 @@ import com.rifqimfahmi.foorballapps.R
 import com.rifqimfahmi.foorballapps.features.matches.adapter.FavoritesPagerAdapter
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 19/11/18.
- */
 
 class FavoritesFragment : Fragment() {
 

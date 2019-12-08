@@ -9,9 +9,6 @@ import retrofit2.Response
 import java.lang.reflect.Type
 import java.util.concurrent.atomic.AtomicBoolean
 
-/*
- * Created by Rifqi Mulya Fahmi on 01/12/18.
- */
 
 class LiveDataCallAdapter<R>(private val responseType: Type) :
     CallAdapter<R, LiveData<ApiResponse<R>>> {

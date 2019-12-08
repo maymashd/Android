@@ -6,9 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.rifqimfahmi.foorballapps.vo.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 19/11/18.
- */
 @Database(entities = [Match::class, Team::class, Player::class, FavoriteMatch::class, FavoriteTeam::class], version = 1)
 abstract class SportDb : RoomDatabase() {
 

@@ -1,8 +1,6 @@
 package com.rifqimfahmi.foorballapps.data.source.remote
 
-/*
- * Created by Rifqi Mulya Fahmi on 01/12/18.
- */
+
 
 import retrofit2.Response
 import java.util.regex.Pattern

@@ -14,9 +14,6 @@ import com.rifqimfahmi.foorballapps.vo.Match
 import com.rifqimfahmi.foorballapps.vo.Resource
 import kotlinx.android.synthetic.main.list_items.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 19/11/18.
- */
 
 class FavoriteMatchesFragment : Fragment() {
 

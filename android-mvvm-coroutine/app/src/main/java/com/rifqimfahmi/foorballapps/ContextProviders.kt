@@ -3,9 +3,6 @@ package com.rifqimfahmi.foorballapps
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
-/*
- * Created by Rifqi Mulya Fahmi on 16/12/18.
- */
 
 open class ContextProviders {
     open val Main: CoroutineContext = Dispatchers.Main

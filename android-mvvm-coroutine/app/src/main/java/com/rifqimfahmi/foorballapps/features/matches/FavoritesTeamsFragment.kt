@@ -14,9 +14,6 @@ import com.rifqimfahmi.foorballapps.vo.Resource
 import com.rifqimfahmi.foorballapps.vo.Team
 import kotlinx.android.synthetic.main.list_items.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 09/12/18.
- */
 
 class FavoritesTeamsFragment : Fragment() {
 

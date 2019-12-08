@@ -10,9 +10,6 @@ import com.rifqimfahmi.foorballapps.R
 import com.rifqimfahmi.foorballapps.vo.Resource
 import com.rifqimfahmi.foorballapps.vo.Status
 
-/*
- * Created by Rifqi Mulya Fahmi on 03/12/18.
- */
 
 abstract class BaseRVAdapter<T>(val ctx: Context?, var resource: Resource<List<T>>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

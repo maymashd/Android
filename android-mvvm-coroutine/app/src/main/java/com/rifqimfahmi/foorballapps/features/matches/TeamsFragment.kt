@@ -22,9 +22,6 @@ import com.rifqimfahmi.foorballapps.vo.Status
 import kotlinx.android.synthetic.main.fragment_teams.view.*
 import kotlinx.android.synthetic.main.list_items.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 19/11/18.
- */
  
 class TeamsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 

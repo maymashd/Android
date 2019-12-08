@@ -8,9 +8,6 @@ import com.squareup.moshi.Json
 import java.text.SimpleDateFormat
 import java.util.*
 
-/*
- * Created by Rifqi Mulya Fahmi on 26/11/18.
- */
 
 @Entity(tableName = "matches", primaryKeys = ["idEvent"])
 data class Match (
