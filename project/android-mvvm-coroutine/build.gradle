@@ -1,4 +1,4 @@
-
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
     test_runner = "1.0.0"
     test_rules = "1.1.1"
