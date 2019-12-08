@@ -13,19 +13,13 @@ public final class SportRepository {
     public static final com.dake.foorballapps.data.source.SportRepository.Companion Companion = null;
     
     @org.jetbrains.annotations.NotNull()
-    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Match>>> prevMatches(@org.jetbrains.annotations.NotNull()
-    java.lang.String leagueId) {
-        return null;
-    }
-    
-    @org.jetbrains.annotations.NotNull()
     public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Match>>> nextMatches(@org.jetbrains.annotations.NotNull()
     java.lang.String leagueId) {
         return null;
     }
     
     @org.jetbrains.annotations.NotNull()
-    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Team>>> teams(@org.jetbrains.annotations.NotNull()
+    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Match>>> prevMatches(@org.jetbrains.annotations.NotNull()
     java.lang.String leagueId) {
         return null;
     }
@@ -37,14 +31,20 @@ public final class SportRepository {
     }
     
     @org.jetbrains.annotations.NotNull()
-    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<com.dake.foorballapps.vo.Match>> getEventDetail(@org.jetbrains.annotations.NotNull()
-    java.lang.String matchId) {
+    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Team>>> teams(@org.jetbrains.annotations.NotNull()
+    java.lang.String leagueId) {
         return null;
     }
     
     @org.jetbrains.annotations.NotNull()
     public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Player>>> getPlayers(@org.jetbrains.annotations.NotNull()
     java.lang.String teamId) {
+        return null;
+    }
+    
+    @org.jetbrains.annotations.NotNull()
+    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<com.dake.foorballapps.vo.Match>> getEventDetail(@org.jetbrains.annotations.NotNull()
+    java.lang.String matchId) {
         return null;
     }
     
@@ -59,11 +59,6 @@ public final class SportRepository {
     }
     
     @org.jetbrains.annotations.NotNull()
-    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Match>>> getFavoriteMatches() {
-        return null;
-    }
-    
-    @org.jetbrains.annotations.NotNull()
     public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Team>>> getFavoriteTeams() {
         return null;
     }
@@ -75,19 +70,24 @@ public final class SportRepository {
     }
     
     @org.jetbrains.annotations.NotNull()
+    public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Match>>> getFavoriteMatches() {
+        return null;
+    }
+    
+    @org.jetbrains.annotations.NotNull()
     public final androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Resource<java.util.List<com.dake.foorballapps.vo.Team>>> searchTeam(@org.jetbrains.annotations.NotNull()
     java.lang.String query) {
         return null;
+    }
+    
+    public final void toggleFavoriteTeam(@org.jetbrains.annotations.NotNull()
+    java.lang.String teamId, boolean isFavorite) {
     }
     
     @org.jetbrains.annotations.NotNull()
     public final androidx.lifecycle.LiveData<java.lang.Boolean> isFavoriteTeam(@org.jetbrains.annotations.NotNull()
     java.lang.String teamId) {
         return null;
-    }
-    
-    public final void toggleFavoriteTeam(@org.jetbrains.annotations.NotNull()
-    java.lang.String teamId, boolean isFavorite) {
     }
     
     @org.jetbrains.annotations.NotNull()

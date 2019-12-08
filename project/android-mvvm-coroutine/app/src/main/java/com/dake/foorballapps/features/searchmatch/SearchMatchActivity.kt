@@ -13,19 +13,9 @@ class SearchMatchActivity : BaseSearchActivity<Match>() {
 
     private lateinit var viewModel: SearchMatchViewModel
 
-    override fun setupAdapter() {
-        rv_list.adapter = MatchesAdapter(this, Resource.loading(null)) {
-            startActivity(MatchDetailActivity.getStartIntent(this, it.idEvent, it.idHomeTeam, it.idAwayTeam))
-        }
-    }
 
-    override fun setupData() {
-        viewModel = obtainViewModel()
-        with(viewModel) {
-            submitQuery(sQuery)
-            result.observe(this@SearchMatchActivity, Observer { data -> updateData(data) })
-        }
-    }
+    private fun obtainViewModel() = obtainViewModel(SearchMatchViewModel::class.java)
+
 
     override fun submitQuery(query: String?) {
         viewModel.submitQuery(query)
@@ -36,5 +26,18 @@ class SearchMatchActivity : BaseSearchActivity<Match>() {
         (rv_list.adapter as MatchesAdapter).submitData(data)
     }
 
-    private fun obtainViewModel() = obtainViewModel(SearchMatchViewModel::class.java)
+    override fun setupData() {
+        viewModel = obtainViewModel()
+        with(viewModel) {
+            submitQuery(sQuery)
+            result.observe(this@SearchMatchActivity, Observer { data -> updateData(data) })
+        }
+    }
+
+    override fun setupAdapter() {
+        rv_list.adapter = MatchesAdapter(this, Resource.loading(null)) {
+            startActivity(MatchDetailActivity.getStartIntent(this, it.idEvent, it.idHomeTeam, it.idAwayTeam))
+        }
+    }
+
 }
