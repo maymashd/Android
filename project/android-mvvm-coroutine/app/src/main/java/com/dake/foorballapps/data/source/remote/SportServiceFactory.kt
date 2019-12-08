@@ -15,6 +15,15 @@ class SportServiceFactory {
 
         private const val BASE_URL = "https://www.thesportsdb.com/api/v1/json/1/"
 
+        private fun provideOkHttpClient(): OkHttpClient {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+            val client = OkHttpClient.Builder()
+            client.addInterceptor(interceptor)
+            return client.build()
+        }
+
         fun getService() : SportService {
             return INSTANCE ?: synchronized(this) {
                 val instance = Retrofit.Builder()
@@ -29,13 +38,6 @@ class SportServiceFactory {
             }
         }
 
-        private fun provideOkHttpClient(): OkHttpClient {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-            val client = OkHttpClient.Builder()
-            client.addInterceptor(interceptor)
-            return client.build()
-        }
     }
 }
