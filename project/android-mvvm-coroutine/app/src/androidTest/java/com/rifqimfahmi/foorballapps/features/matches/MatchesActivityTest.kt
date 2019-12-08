@@ -25,9 +25,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
-/*
- * Created by Rifqi Mulya Fahmi on 22/12/18.
- */
 
 @RunWith(AndroidJUnit4::class)
 class MatchesActivityTest {

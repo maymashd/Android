@@ -5,9 +5,6 @@ import com.rifqimfahmi.foorballapps.models.Match
 import com.rifqimfahmi.foorballapps.models.Resource
 import com.rifqimfahmi.foorballapps.models.Team
 
-/*
- * Created by Rifqi Mulya Fahmi on 16/12/18.
- */
 
 object TestUtil {
 

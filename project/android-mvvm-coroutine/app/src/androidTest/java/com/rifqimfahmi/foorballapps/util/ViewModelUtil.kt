@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import java.lang.IllegalArgumentException
 
-/*
- * Created by Rifqi Mulya Fahmi on 23/12/18.
- */
+
 
 object ViewModelUtil {
     fun <T : ViewModel> createFor(model: T) : ViewModelProvider.Factory {
