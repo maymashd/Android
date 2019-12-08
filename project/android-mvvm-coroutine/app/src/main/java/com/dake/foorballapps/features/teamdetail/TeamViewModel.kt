@@ -17,14 +17,6 @@ class TeamViewModel(context: Application, private val sportRepository: SportRepo
 
     private val teamId = MutableLiveData<String>()
 
-    val team: LiveData<Resource<Team>> = Transformations.switchMap(teamId) { id ->
-        if (id.isNullOrBlank()) {
-            AbsentLiveData.create()
-        } else {
-            sportRepository.getTeam(id)
-        }
-    }
-
     val players: LiveData<Resource<List<Player>>> = Transformations.switchMap(teamId) { id ->
         if (id.isNullOrBlank()) {
             AbsentLiveData.create()
@@ -33,6 +25,22 @@ class TeamViewModel(context: Application, private val sportRepository: SportRepo
         }
     }
 
+    val team: LiveData<Resource<Team>> = Transformations.switchMap(teamId) { id ->
+        if (id.isNullOrBlank()) {
+            AbsentLiveData.create()
+        } else {
+            sportRepository.getTeam(id)
+        }
+    }
+
+
+
+
+    fun toggleFavorite(matchId: String) {
+        isFavorite.value?.let {
+            sportRepository.toggleFavoriteTeam(matchId, it)
+        }
+    }
     val isFavorite : LiveData<Boolean> = Transformations.switchMap(teamId) { id ->
         sportRepository.isFavoriteTeam(id)
     }
@@ -42,9 +50,5 @@ class TeamViewModel(context: Application, private val sportRepository: SportRepo
     }
 
 
-    fun toggleFavorite(matchId: String) {
-        isFavorite.value?.let {
-            sportRepository.toggleFavoriteTeam(matchId, it)
-        }
-    }
+
 }

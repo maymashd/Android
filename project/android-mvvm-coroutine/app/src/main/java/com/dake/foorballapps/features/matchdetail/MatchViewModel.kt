@@ -22,6 +22,15 @@ class MatchViewModel(ctx: Application, private val sportRepository: SportReposit
     private val idAwayTeam = MutableLiveData<String>()
     private val idEvent = MutableLiveData<String>()
 
+
+    val awayTeam : LiveData<Resource<Team>> = Transformations.switchMap(idAwayTeam) { id ->
+        if (id.isNullOrBlank()) {
+            AbsentLiveData.create()
+        } else {
+            sportRepository.getTeam(id)
+        }
+    }
+
     val homeTeam : LiveData<Resource<Team>> = Transformations.switchMap(idHomeTeam) { id ->
         if (id.isNullOrBlank()) {
             AbsentLiveData.create()
@@ -30,12 +39,12 @@ class MatchViewModel(ctx: Application, private val sportRepository: SportReposit
         }
     }
 
-    val awayTeam : LiveData<Resource<Team>> = Transformations.switchMap(idAwayTeam) { id ->
-        if (id.isNullOrBlank()) {
-            AbsentLiveData.create()
-        } else {
-            sportRepository.getTeam(id)
-        }
+
+
+    fun initData(idEvent: String, idHomeTeam: String, idAwayTeam: String) {
+        this.idEvent.value = idEvent
+        this.idHomeTeam.value = idHomeTeam
+        this.idAwayTeam.value = idAwayTeam
     }
 
     val matchDetail : LiveData<Resource<Match>> = Transformations.switchMap(idEvent) { id ->
@@ -46,19 +55,17 @@ class MatchViewModel(ctx: Application, private val sportRepository: SportReposit
         }
     }
 
-    val isFavorite : LiveData<Boolean> = Transformations.switchMap(idEvent) { id ->
-        sportRepository.isFavoriteMatch(id)
-    }
-
-    fun initData(idEvent: String, idHomeTeam: String, idAwayTeam: String) {
-        this.idEvent.value = idEvent
-        this.idHomeTeam.value = idHomeTeam
-        this.idAwayTeam.value = idAwayTeam
-    }
-
     fun toggleFavorite(matchId: String) {
         isFavorite.value?.let {
             sportRepository.toggleFavoriteMatch(matchId, it)
         }
     }
+
+    val isFavorite : LiveData<Boolean> = Transformations.switchMap(idEvent) { id ->
+        sportRepository.isFavoriteMatch(id)
+    }
+
+
+
+
 }

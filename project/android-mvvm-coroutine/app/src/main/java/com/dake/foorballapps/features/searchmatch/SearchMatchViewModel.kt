@@ -18,6 +18,7 @@ class SearchMatchViewModel(ctx: Application, sportRepository: SportRepository) :
     val context: Context = ctx.applicationContext
 
     private val query = MutableLiveData<String>()
+
     val result: LiveData<Resource<List<Match>>> = Transformations.switchMap(query) { q ->
         if (q.isNullOrEmpty()) {
             AbsentLiveData.create()
@@ -31,4 +32,7 @@ class SearchMatchViewModel(ctx: Application, sportRepository: SportRepository) :
             this.query.value = query
         }
     }
+
+
+
 }

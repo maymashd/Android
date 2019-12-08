@@ -12,9 +12,14 @@ import com.dake.foorballapps.util.AbsentLiveData
  
 class PlayerViewModel(ctx: Application, sportRepository: SportRepository) : AndroidViewModel(ctx) {
 
+    private val playerId = MutableLiveData<String>()
     val context: Context = ctx.applicationContext
 
-    private val playerId = MutableLiveData<String>()
+
+
+    fun initData(playerId : String) {
+        this.playerId.value = playerId
+    }
 
     val player = Transformations.switchMap(playerId) { id ->
         if (id.isNullOrBlank()) {
@@ -24,7 +29,5 @@ class PlayerViewModel(ctx: Application, sportRepository: SportRepository) : Andr
         }
     }
 
-    fun initData(playerId : String) {
-        this.playerId.value = playerId
-    }
+
 }
