@@ -52,7 +52,7 @@ interface SportDao {
 
     @Query("SELECT * FROM players WHERE idPlayer = :playerId")
     fun getPlayer(playerId: String): LiveData<Player>
-    
+
     @Insert(onConflict = REPLACE)
     fun addToFavoriteMatch(favMatch: FavoriteMatch)
 

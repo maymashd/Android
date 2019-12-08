@@ -8,29 +8,6 @@ import java.lang.System;
 public abstract interface SportDao {
     
     @org.jetbrains.annotations.NotNull()
-    @androidx.room.Query(value = "SELECT * FROM matches WHERE idLeague = :idLeague AND matchType = \'type_next_match\' ORDER BY dateEvent DESC LIMIT 15")
-    public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Match>> getNextMatches(@org.jetbrains.annotations.Nullable()
-    java.lang.String idLeague);
-    
-    @org.jetbrains.annotations.NotNull()
-    @androidx.room.Query(value = "SELECT * FROM matches WHERE idLeague = :idLeague AND matchType = \'type_prev_match\' ORDER BY dateEvent DESC LIMIT 15")
-    public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Match>> getPrevMatches(@org.jetbrains.annotations.Nullable()
-    java.lang.String idLeague);
-    
-    @androidx.room.Query(value = "DELETE FROM matches WHERE matchType = \'type_next_match\' AND idLeague = :idLeague")
-    public abstract void deleteNextMatches(@org.jetbrains.annotations.Nullable()
-    java.lang.String idLeague);
-    
-    @androidx.room.Query(value = "DELETE FROM matches WHERE matchType = \'type_prev_match\' AND idLeague = :idLeague")
-    public abstract void deletePrevMatches(@org.jetbrains.annotations.Nullable()
-    java.lang.String idLeague);
-    
-    @org.jetbrains.annotations.NotNull()
-    @androidx.room.Query(value = "SELECT * FROM teams WHERE idLeague = :leagueId")
-    public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Team>> getTeams(@org.jetbrains.annotations.NotNull()
-    java.lang.String leagueId);
-    
-    @org.jetbrains.annotations.NotNull()
     @androidx.room.Query(value = "SELECT * FROM teams WHERE idTeam = :teamId")
     public abstract androidx.lifecycle.LiveData<com.dake.foorballapps.vo.Team> getTeam(@org.jetbrains.annotations.NotNull()
     java.lang.String teamId);
@@ -77,6 +54,14 @@ public abstract interface SportDao {
     java.lang.String playerId);
     
     @androidx.room.Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
+    public abstract void addToFavoriteMatch(@org.jetbrains.annotations.NotNull()
+    com.dake.foorballapps.vo.FavoriteMatch favMatch);
+    
+    @androidx.room.Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
+    public abstract void addToFavoriteTeam(@org.jetbrains.annotations.NotNull()
+    com.dake.foorballapps.vo.FavoriteTeam favoriteTeam);
+    
+    @androidx.room.Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
     public abstract void saveMatches(@org.jetbrains.annotations.NotNull()
     java.util.List<com.dake.foorballapps.vo.Match> matches);
     
@@ -88,14 +73,6 @@ public abstract interface SportDao {
     public abstract void savePlayers(@org.jetbrains.annotations.NotNull()
     java.util.List<com.dake.foorballapps.vo.Player> players);
     
-    @androidx.room.Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
-    public abstract void addToFavoriteMatch(@org.jetbrains.annotations.NotNull()
-    com.dake.foorballapps.vo.FavoriteMatch favMatch);
-    
-    @androidx.room.Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
-    public abstract void addToFavoriteTeam(@org.jetbrains.annotations.NotNull()
-    com.dake.foorballapps.vo.FavoriteTeam favoriteTeam);
-    
     @org.jetbrains.annotations.NotNull()
     @androidx.room.Query(value = "SELECT * FROM matches WHERE strEvent LIKE :query ORDER BY dateEvent DESC")
     public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Match>> searchMatch(@org.jetbrains.annotations.NotNull()
@@ -105,4 +82,27 @@ public abstract interface SportDao {
     @androidx.room.Query(value = "SELECT * FROM teams WHERE strTeam LIKE :query")
     public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Team>> searchTeam(@org.jetbrains.annotations.NotNull()
     java.lang.String query);
+    
+    @androidx.room.Query(value = "DELETE FROM matches WHERE matchType = \'type_prev_match\' AND idLeague = :idLeague")
+    public abstract void deletePrevMatches(@org.jetbrains.annotations.Nullable()
+    java.lang.String idLeague);
+    
+    @org.jetbrains.annotations.NotNull()
+    @androidx.room.Query(value = "SELECT * FROM teams WHERE idLeague = :leagueId")
+    public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Team>> getTeams(@org.jetbrains.annotations.NotNull()
+    java.lang.String leagueId);
+    
+    @org.jetbrains.annotations.NotNull()
+    @androidx.room.Query(value = "SELECT * FROM matches WHERE idLeague = :idLeague AND matchType = \'type_prev_match\' ORDER BY dateEvent DESC LIMIT 15")
+    public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Match>> getPrevMatches(@org.jetbrains.annotations.Nullable()
+    java.lang.String idLeague);
+    
+    @androidx.room.Query(value = "DELETE FROM matches WHERE matchType = \'type_next_match\' AND idLeague = :idLeague")
+    public abstract void deleteNextMatches(@org.jetbrains.annotations.Nullable()
+    java.lang.String idLeague);
+    
+    @org.jetbrains.annotations.NotNull()
+    @androidx.room.Query(value = "SELECT * FROM matches WHERE idLeague = :idLeague AND matchType = \'type_next_match\' ORDER BY dateEvent DESC LIMIT 15")
+    public abstract androidx.lifecycle.LiveData<java.util.List<com.dake.foorballapps.vo.Match>> getNextMatches(@org.jetbrains.annotations.Nullable()
+    java.lang.String idLeague);
 }
