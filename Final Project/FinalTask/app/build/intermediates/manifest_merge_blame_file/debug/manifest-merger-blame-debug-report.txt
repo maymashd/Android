@@ -1,0 +1,217 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.moviedbextendedapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:5:22-64
+12
+13    <!-- Include required permissions for Google Maps API to run. -->
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+14-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
+15
+16    <uses-feature
+16-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+17        android:glEsVersion="0x00020000"
+17-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+18        android:required="true" />
+18-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+19
+20    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+20-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:24:5-68
+20-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:24:22-65
+21    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+21-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:26:5-82
+21-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:26:22-79
+22
+23    <application
+23-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:6:5-35:19
+24        android:name="com.example.moviedb.presentation.App"
+24-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:7:9-41
+25        android:allowBackup="true"
+25-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:8:9-35
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\a872031c826aa16f8e3a1a1d912f7ef9\core-1.1.0\AndroidManifest.xml:24:18-86
+27        android:debuggable="true"
+28        android:icon="@mipmap/ic_launcher"
+28-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:9:9-43
+29        android:label="@string/app_name"
+29-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:10:9-41
+30        android:roundIcon="@mipmap/ic_launcher_round"
+30-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:11:9-54
+31        android:supportsRtl="true"
+31-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:12:9-35
+32        android:testOnly="true"
+33        android:theme="@style/AppTheme" >
+33-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:13:9-40
+34        <meta-data
+34-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:14:9-16:55
+35            android:name="com.google.android.geo.API_KEY"
+35-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:15:13-58
+36            android:value="@string/google_maps_key" />
+36-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:16:13-52
+37
+38        <activity android:name="com.example.moviedb.presentation.login.LoginActivity" >
+38-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:17:9-23:20
+38-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:17:19-67
+39            <intent-filter>
+39-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:18:13-22:29
+40                <action android:name="android.intent.action.MAIN" />
+40-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:19:17-69
+40-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:19:25-66
+41
+42                <category android:name="android.intent.category.LAUNCHER" />
+42-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:21:17-77
+42-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:21:27-74
+43            </intent-filter>
+44        </activity>
+45        <activity android:name="com.example.moviedb.presentation.MainActivity" />
+45-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:24:9-72
+45-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:24:19-60
+46
+47        <service android:name="com.example.moviedb.presentation.services.MyFirebaseInstanceService" >
+47-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:25:9-29:19
+47-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:25:18-81
+48            <intent-filter>
+48-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:26:13-28:29
+49                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+49-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:27:17-87
+49-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:27:25-77
+50            </intent-filter>
+51        </service>
+52        <service android:name="com.example.moviedb.presentation.services.MyFirebaseMessagingService" >
+52-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:30:9-34:19
+52-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:30:18-82
+53            <intent-filter>
+53-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:31:13-33:29
+54                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+54-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:32:17-85
+54-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:32:25-75
+55            </intent-filter>
+56        </service>
+57        <!--
+58             FirebaseMessagingService performs security checks at runtime,
+59             no need for explicit permissions despite exported="true"
+60        -->
+61        <service
+61-->[com.google.firebase:firebase-messaging:17.3.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\cc21359900c87578c6805f0948e2a779\jetified-firebase-messaging-17.3.4\AndroidManifest.xml:28:9-34:19
+62            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+62-->[com.google.firebase:firebase-messaging:17.3.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\cc21359900c87578c6805f0948e2a779\jetified-firebase-messaging-17.3.4\AndroidManifest.xml:29:13-82
+63            android:exported="true" >
+63-->[com.google.firebase:firebase-messaging:17.3.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\cc21359900c87578c6805f0948e2a779\jetified-firebase-messaging-17.3.4\AndroidManifest.xml:30:13-36
+64            <intent-filter android:priority="-500" >
+64-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:31:13-33:29
+65                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+65-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:32:17-85
+65-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:32:25-75
+66            </intent-filter>
+67        </service>
+68        <service
+68-->[androidx.room:room-runtime:2.2.2] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\3f531e6415d3cc53b886a3a13edc99fc\room-runtime-2.2.2\AndroidManifest.xml:25:9-27:40
+69            android:name="androidx.room.MultiInstanceInvalidationService"
+69-->[androidx.room:room-runtime:2.2.2] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\3f531e6415d3cc53b886a3a13edc99fc\room-runtime-2.2.2\AndroidManifest.xml:26:13-74
+70            android:exported="false" /> <!-- Needs to be explicitly declared on P+ -->
+70-->[androidx.room:room-runtime:2.2.2] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\3f531e6415d3cc53b886a3a13edc99fc\room-runtime-2.2.2\AndroidManifest.xml:27:13-37
+71        <uses-library
+71-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+72            android:name="org.apache.http.legacy"
+72-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+73            android:required="false" />
+73-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\1ae2db5587ff3b54f3e35e4ad3b6dfbf\play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+74
+75        <service
+75-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:29:9-35:19
+76            android:name="com.google.firebase.components.ComponentDiscoveryService"
+76-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:30:13-84
+77            android:exported="false" >
+77-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:31:13-37
+78            <meta-data
+78-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:32:13-34:85
+79                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+79-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:33:17-96
+80                android:value="com.google.firebase.components.ComponentRegistrar" />
+80-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:34:17-82
+81        </service>
+82
+83        <receiver
+83-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:37:9-44:20
+84            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+84-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:38:13-78
+85            android:exported="true"
+85-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:39:13-36
+86            android:permission="com.google.android.c2dm.permission.SEND" >
+86-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:40:13-73
+87            <intent-filter>
+87-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:41:13-43:29
+88                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+88-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:42:17-81
+88-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:42:25-78
+89            </intent-filter>
+90        </receiver>
+91        <!--
+92             FirebaseInstanceIdService performs security checks at runtime,
+93             no need for explicit permissions despite exported="true"
+94        -->
+95        <service
+95-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:50:9-56:19
+96            android:name="com.google.firebase.iid.FirebaseInstanceIdService"
+96-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:51:13-77
+97            android:exported="true" >
+97-->[com.google.firebase:firebase-iid:17.0.4] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4780d526fe035ed77d91fa0e279219ca\jetified-firebase-iid-17.0.4\AndroidManifest.xml:52:13-36
+98            <intent-filter android:priority="-500" >
+98-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:26:13-28:29
+99                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+99-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:27:17-87
+99-->C:\Users\Lenovo\Desktop\Android\Final Project\FinalTask\app\src\main\AndroidManifest.xml:27:25-77
+100            </intent-filter>
+101        </service>
+102
+103        <provider
+103-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\64f15e820b96eca192abc98f3af0b7aa\jetified-firebase-common-16.0.3\AndroidManifest.xml:10:9-14:39
+104            android:name="com.google.firebase.provider.FirebaseInitProvider"
+104-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\64f15e820b96eca192abc98f3af0b7aa\jetified-firebase-common-16.0.3\AndroidManifest.xml:11:13-77
+105            android:authorities="com.example.moviedbextendedapp.firebaseinitprovider"
+105-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\64f15e820b96eca192abc98f3af0b7aa\jetified-firebase-common-16.0.3\AndroidManifest.xml:12:13-72
+106            android:exported="false"
+106-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\64f15e820b96eca192abc98f3af0b7aa\jetified-firebase-common-16.0.3\AndroidManifest.xml:13:13-37
+107            android:initOrder="100" />
+107-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\64f15e820b96eca192abc98f3af0b7aa\jetified-firebase-common-16.0.3\AndroidManifest.xml:14:13-36
+108
+109        <activity
+109-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4d6ff92ee27f75cd300b4af2f402325e\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+110            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+110-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4d6ff92ee27f75cd300b4af2f402325e\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+111            android:exported="false"
+111-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4d6ff92ee27f75cd300b4af2f402325e\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+112            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+112-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\4d6ff92ee27f75cd300b4af2f402325e\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+113
+114        <meta-data
+114-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\6a58ee79ffcf4532f6058bb907d90500\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+115            android:name="com.google.android.gms.version"
+115-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\6a58ee79ffcf4532f6058bb907d90500\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+116            android:value="@integer/google_play_services_version" />
+116-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\6a58ee79ffcf4532f6058bb907d90500\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+117
+118        <provider
+118-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\9c8118b5404fb563a730c7b122151171\lifecycle-process-2.1.0\AndroidManifest.xml:23:9-27:43
+119            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+119-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\9c8118b5404fb563a730c7b122151171\lifecycle-process-2.1.0\AndroidManifest.xml:24:13-79
+120            android:authorities="com.example.moviedbextendedapp.lifecycle-process"
+120-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\9c8118b5404fb563a730c7b122151171\lifecycle-process-2.1.0\AndroidManifest.xml:25:13-69
+121            android:exported="false"
+121-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\9c8118b5404fb563a730c7b122151171\lifecycle-process-2.1.0\AndroidManifest.xml:26:13-37
+122            android:multiprocess="true" />
+122-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\9c8118b5404fb563a730c7b122151171\lifecycle-process-2.1.0\AndroidManifest.xml:27:13-40
+123    </application>
+124
+125</manifest>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CinemaApp</string>
+
+    <string name="movie_list_activity">List</string>
+    <string name="movie_favorite_activity">MyFavorite</string>
+    <string name="movie_profile_activity">MyProfile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

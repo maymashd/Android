@@ -11,8 +11,19 @@ apply plugin: 'kotlin-allopen'
 allOpen {
     annotation "com.rifqimfahmi.foorballapps.testing.OpenClass"
 }
+kapt {
+    correctErrorTypes true
+}
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\Lenovo\\Desktop\\test.jks')
+            storePassword 'Dake112358'
+            keyAlias = 'test'
+            keyPassword 'Dake112358'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.rifqimfahmi.foorballapps"
@@ -31,7 +42,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,6 +57,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:$rootProject.mockito"

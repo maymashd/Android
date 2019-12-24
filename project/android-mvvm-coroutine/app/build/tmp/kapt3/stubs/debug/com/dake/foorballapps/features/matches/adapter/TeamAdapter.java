@@ -1,6 +1,18 @@
 package com.dake.foorballapps.features.matches.adapter;
 
-import java.lang.System;
+import android.animation.AnimatorInflater;
+import android.content.Context;
+import android.os.Build;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
+import com.dake.foorballapps.R;
+import com.dake.foorballapps.features.base.BaseRVAdapter;
+import com.dake.foorballapps.vo.Resource;
+import com.dake.foorballapps.vo.Team;
+import com.squareup.picasso.Picasso;
+import kotlinx.android.synthetic.main.iteam_team.view.*;
 
 @kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000@\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010 \n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\u0002\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001:\u0001\u0014B7\u0012\b\u0010\u0003\u001a\u0004\u0018\u00010\u0004\u0012\u0012\u0010\u0005\u001a\u000e\u0012\n\u0012\b\u0012\u0004\u0012\u00020\u00020\u00070\u0006\u0012\u0012\u0010\b\u001a\u000e\u0012\u0004\u0012\u00020\u0002\u0012\u0004\u0012\u00020\n0\t\u00a2\u0006\u0002\u0010\u000bJ\u0010\u0010\f\u001a\u00020\r2\u0006\u0010\u000e\u001a\u00020\u000fH\u0014J\u0018\u0010\u0010\u001a\u00020\n2\u0006\u0010\u0011\u001a\u00020\r2\u0006\u0010\u0012\u001a\u00020\u0013H\u0016R\u001a\u0010\b\u001a\u000e\u0012\u0004\u0012\u00020\u0002\u0012\u0004\u0012\u00020\n0\tX\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0015"}, d2 = {"Lcom/dake/foorballapps/features/matches/adapter/TeamAdapter;", "Lcom/dake/foorballapps/features/base/BaseRVAdapter;", "Lcom/dake/foorballapps/vo/Team;", "ctx", "Landroid/content/Context;", "resource", "Lcom/dake/foorballapps/vo/Resource;", "", "clickListener", "Lkotlin/Function1;", "", "(Landroid/content/Context;Lcom/dake/foorballapps/vo/Resource;Lkotlin/jvm/functions/Function1;)V", "createDataViewHolder", "Landroidx/recyclerview/widget/RecyclerView$ViewHolder;", "parent", "Landroid/view/ViewGroup;", "onBindViewHolder", "holder", "position", "", "TeamItem", "app_debug"})
 public final class TeamAdapter extends com.dake.foorballapps.features.base.BaseRVAdapter<com.dake.foorballapps.vo.Team> {

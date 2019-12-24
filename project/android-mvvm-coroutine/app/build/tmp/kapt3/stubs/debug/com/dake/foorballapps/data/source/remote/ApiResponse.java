@@ -1,6 +1,7 @@
 package com.dake.foorballapps.data.source.remote;
 
-import java.lang.System;
+import retrofit2.Response;
+import java.util.regex.Pattern;
 
 @kotlin.Suppress(names = {"unused"})
 @kotlin.Metadata(mv = {1, 1, 13}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u001c\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\b6\u0018\u0000 \u0004*\u0004\b\u0000\u0010\u00012\u00020\u0002:\u0001\u0004B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0003\u0082\u0001\u0003\u0005\u0006\u0007\u00a8\u0006\b"}, d2 = {"Lcom/dake/foorballapps/data/source/remote/ApiResponse;", "T", "", "()V", "Companion", "Lcom/dake/foorballapps/data/source/remote/ApiEmptyResponse;", "Lcom/dake/foorballapps/data/source/remote/ApiSuccessResponse;", "Lcom/dake/foorballapps/data/source/remote/ApiErrorResponse;", "app_debug"})
